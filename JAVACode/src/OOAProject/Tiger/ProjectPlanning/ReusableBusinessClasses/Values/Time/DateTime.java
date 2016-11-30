@@ -181,36 +181,52 @@ public class DateTime implements Serializable{
 		return timeType;
 	}
 	
-	public String MilitaryTo12HoursFormat(){
+	public void MilitaryTo12HoursFormat(){
 		if(timeType==Time_Type.Military){
 			if(hour>11){
 				hour = hour-12;
-				return new String(hour+":" +Minute);
+				timeType=Time_Type.PM;
+				//return new String(hour+":" +Minute);
 			}
 			else{
-				return new String(hour+":" +Minute);				
+				timeType = Time_Type.AM;
 			}
 		}
-		else
-			return null;
+		else{
+			System.out.println("Already a 12 Hours Format");
+		}
+		
 	}
-	public String Hours12FormatToMilitary(){
+	public void Hours12FormatToMilitary(){
 		if(timeType==Time_Type.AM){
-				return new String(hour+":" +Minute);
+			//return new String(hour+":" +Minute);
 		}
 		else if(timeType==Time_Type.PM){
-				hour =hour+12;
-				return new String(hour+":" +Minute);				
-			}
-		
-		else
-			return null;
+			hour =hour+12;
+			//return new String(hour+":" +Minute);
+		}
+		else{
+			System.out.println("Already in Military Format");
+		}
+		timeType = Time_Type.Military;
+			//return null;
 	}
 	
     @Override
 	public String toString() {
-    	if(hour!=-1){	
-    		return "[ Date(MM/DD/YYYY)=" + Month+"/"+Day+"/"+Year+ "/n" + "Time (hh:mm) : " +hour+ ":" + Minute + "UTC" + hourOffset + ":"+ minOffset+"]";
+    	if(hour!=-1){
+    		String hourZero = (hour<10)?"0":"";
+    		String minuteZero = (Minute<10)?"0":"";
+    		if(timeType==Time_Type.Military){
+    			return "[ Date(MM/DD/YYYY)=" + Month+"/"+Day+"/"+Year+ "/n" + "Time (hh:mm)  : " +hourZero+hour+ ":" + minuteZero+Minute + "UTC" + hourOffset + ":"+ minOffset+"]";	
+    		}
+    		else if(timeType==Time_Type.AM){
+    			return "[ Date(MM/DD/YYYY)=" + Month+"/"+Day+"/"+Year+ "/n" + "Time (hh:mm)  : " +hourZero+hour+ ":" + minuteZero+Minute + "AM UTC" + hourOffset + ":"+ minOffset+"]";
+    		}
+    		else{
+    			return "[ Date(MM/DD/YYYY)=" + Month+"/"+Day+"/"+Year+ "/n" + "Time (hh:mm)  : " +hourZero+hour+ ":" + minuteZero+Minute + "PM UTC" + hourOffset + ":"+ minOffset+"]";
+    		}
+    		
     	}
     	else if(Day !=-1){
     		return "[ Date(MM/DD/YYYY)=" + Month+"/"+Day+"/"+Year+ "]";
@@ -261,6 +277,11 @@ public class DateTime implements Serializable{
 		int otherDay = other.getDay();
 		int otherMonth = other.getMonth();
 		int otherYear = other.getYear();
+		int Minute = this.Minute;
+		int hour = this.hour;
+		int Day = this.Day;
+		int Month = this.Month;
+		int Year = this.Year;
 		
 		if (this == obj)
 			return true;
@@ -285,82 +306,80 @@ public class DateTime implements Serializable{
 			else{
 				otherMinute = otherMinute - otherOffsetMinute;
 			}
-			
-			if(hour<0||other.getHour()<0){
-				if(hour<0){
+			if(hour<=0||other.getHour()<=0){
+				if(hour<=0){
 					if (Minute<0){
-						Minute = 59 + Minute; //since Minute would be negative
+						Minute = 60 + Minute; //since Minute would be negative
+						System.out.println("Minute :" + Minute );
 						hour = hour -1;
 					}
 					if(hour<0){
 							hour = 24 + hour;
 							Day = Day -1;
 					}
+					
 					if(Day<1){
-						if((Month==1)||(Month==3)||(Month==5)||(Month==7)||(Month==8)||(Month==10)||(Month==12)){
+						if((Month==5)||(Month==7)||(Month==8)||(Month==10)||(Month==12)){
 							Month = Month-1;
-							Day =31;
-							if(Month<1){
-								Month = 12;
-								Year = Year-1;
-							}
+							Day =30;
+							
 						}
-						else if(Month==2){
+						else if(Month==3){ // month will be changed to February
+							Month = Month-1;
 							if(((Year%4==0) && (Year%100==0))||(Year%400 == 0)){
-								Month = Month-1;
 								Day = 29;
 							}
 							// if not leap year then check number of days are not more than 28
 							else{
-								Month = Month-1;
 								Day = 28;
 							}
 						}
-						else{							
-							Day = 30;
+						else{
+							Day = 31;
 							Month = Month-1;
+							if(Month<1){ // Month will change to December
+								Month = 12;
+								Year = Year-1;
+							}
 						}
-					}
-				}
-				if(otherHour<0){
+					}// end of check if day get's less than 1
+				}// end of if function checking if the value of hour is zero or less than zero after offset
+				if(otherHour<=0){
 					if (otherMinute<0){
-						otherMinute = 59;
+						otherMinute = 60 + otherMinute;
 						otherHour = otherHour - 1;
 					}if(otherHour<0){							
 							otherHour = 24 + otherHour;
 							otherDay = otherDay -1;
 					}
 					if(otherDay<1){
-						if((otherMonth==1)||(otherMonth==3)||(otherMonth==5)||(otherMonth==7)||(otherMonth==8)||(otherMonth==10)||(otherMonth==12)){
+						if((otherMonth==5)||(otherMonth==7)||(otherMonth==8)||(otherMonth==10)||(otherMonth==12)){
 							otherMonth = otherMonth-1;
-							otherDay =31;
-							if(otherMonth<1){
-								otherYear =otherYear-1;
-								otherMonth = 12;
-							}
+							otherDay =30;
+							
 						}
-						else if(otherMonth==2){
+						else if(otherMonth==3){ // Month will change to February since the days are less than 0 in March
+							otherMonth = otherMonth-1;
 							if(((otherYear%4==0) && (otherYear%100==0))||(otherYear%400 == 0)){
-								otherMonth = otherMonth-1;
 								otherDay = 29;
-							}
-							// if not leap year then check number of days are not more than 28
+							}// if not leap year then check number of days are not more than 28
 							else{
-									otherMonth = otherMonth-1;
 									otherDay = 28;
 							}
 						}
 						else{
 							otherMonth = otherMonth -1;
-							otherDay = 30;
+							otherDay = 31;
+							if(otherMonth<1){
+								otherMonth = 12;
+								otherYear = otherYear -1;
+							}
 						}
 					}
 				}
 			} // end of both less hours
 			if(hour>0||other.getHour()>0){
 				if(hour>0){
-					//hour = hour+hourOffset;
-					//Minute = Minute + minOffset;
 					if (Minute>59){
 						Minute = Minute-60;
 						hour = hour +1;
@@ -403,8 +422,6 @@ public class DateTime implements Serializable{
 				}
 				
 				if(otherHour>0){
-					//otherHour =otherHour +otherHourOffset;
-					//otherMinute = otherMinute + otherOffsetMinute;
 					if (otherMinute>59){
 						otherMinute = otherMinute-60;
 						otherHour = otherHour +1;

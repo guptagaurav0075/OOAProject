@@ -24580,13 +24580,13 @@
 													"showShadow": true,
 													"containerChangeable": false,
 													"containerExtending": false,
-													"left": 258.46655518394647,
+													"left": 226.46655518394647,
 													"top": 471,
-													"width": 33,
+													"width": 97,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "+task",
+													"text": "+date: DateTime",
 													"horizontalAlignment": 0,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -24601,9 +24601,9 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 253.46655518394647,
+											"left": 221.46655518394647,
 											"top": 466,
-											"width": 43,
+											"width": 107,
 											"height": 23,
 											"autoResize": false
 										},
@@ -25683,10 +25683,13 @@
 												"_parent": {
 													"$ref": "AAAAAAFYaja4SZI34q8="
 												},
-												"name": "task",
+												"name": "date",
 												"visibility": "public",
 												"isStatic": false,
 												"isLeaf": false,
+												"type": {
+													"$ref": "AAAAAAFYQjgaUoGgyoU="
+												},
 												"isReadOnly": false,
 												"isOrdered": false,
 												"isUnique": false,
@@ -27657,13 +27660,13 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 567,
-											"top": 304,
+											"left": 575,
+											"top": 311,
 											"width": 20,
 											"height": 13,
 											"autoResize": false,
-											"alpha": -0.7760778494305653,
-											"distance": 21.095023109728988,
+											"alpha": -0.47710830473266874,
+											"distance": 29.614185789921695,
 											"hostEdge": {
 												"$ref": "AAAAAAFYQuRxa4w8TKw="
 											},
