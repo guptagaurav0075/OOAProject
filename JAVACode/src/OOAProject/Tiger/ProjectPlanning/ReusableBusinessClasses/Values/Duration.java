@@ -1,5 +1,7 @@
 package OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values;
 
+import java.time.Year;
+
 import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.InvalidInput;;
 public class Duration {
 	private int NumberOfDays = -1;
@@ -110,20 +112,241 @@ public class Duration {
 			return "Duration [DD/MM] : " +NumberOfDays+"/"+NumberOfMonths+"] [hh:mm] ["+NumberOfHours+":"+NumberOfMinutes+"]";
 		}
 		else{
-			return "Duration [NumberOfDays=" + NumberOfDays + ", NumberOfMonths=" + NumberOfMonths + ", NumberOfYears="
-					+ NumberOfYears + ", NumberOfHours=" + NumberOfHours + ", NumberOfMinutes=" + NumberOfMinutes + "]";
+			return "Duration [DD/MM/YYYY] =" + NumberOfDays + "/" + NumberOfMonths + "/"
+					+ NumberOfYears + " ,\t [hh:mm]=" + NumberOfHours + ":" + NumberOfMinutes ;
 		}		
+	}
+	
+	
+	
+    public int getNumberOfDays() {
+		return NumberOfDays;
 	}
 
 
 
 
-	
+	public int getNumberOfMonths() {
+		return NumberOfMonths;
+	}
 
-    
-    public Duration add(Duration other) {
-        // TODO implement here
+
+
+
+	public int getNumberOfYears() {
+		return NumberOfYears;
+	}
+
+
+
+
+	public int getNumberOfHours() {
+		return NumberOfHours;
+	}
+
+
+
+
+	public int getNumberOfMinutes() {
+		return NumberOfMinutes;
+	}
+
+
+
+
+	public Duration add(Duration other) {
+        int otherMinutes = other.getNumberOfMinutes();
+        int otherHours = other.getNumberOfHours();
+        int otherDays = other.getNumberOfDays();
+        int otherYears = other.getNumberOfYears();
+        int otherMonths = other.getNumberOfMonths();
+        if(NumberOfYears !=-1 && otherYears != -1){
+        	if(NumberOfMonths==-1&&otherMonths == -1){ //month of both are not set
+        		if(otherDays==-1 && NumberOfDays == -1){ // days of both are not set
+        			otherMinutes = otherMinutes +NumberOfMinutes;
+        			otherHours = otherHours + NumberOfHours;
+        			if(otherMinutes > 59){
+        				otherMinutes = otherMinutes - 60;
+        				otherHours = otherHours +1;
+        			}
+        			if(otherHours>23){
+        				otherDays = 1;
+        				otherHours = otherHours-24;
+        				try{
+        					Duration temp = new Duration(otherDays, otherHours, otherMinutes);
+        					return temp;
+        				}
+        				catch(InvalidInput ie){
+        					ie.printStackTrace();
+        				}
+        			}
+        			else{
+        				try{
+        					Duration temp = new Duration(otherHours, otherMinutes);
+        					return temp;
+        				}
+        				catch(InvalidInput ie){
+        					ie.printStackTrace();
+        				}
+        			}
+        		}//end of number of days if no days defined
+        		else{
+        			if(otherDays == -1){
+        				otherDays = 0;
+        			}
+        			if(NumberOfDays == -1){
+        				NumberOfDays = 0;
+        			}
+        			otherDays = otherDays + NumberOfDays;
+    				
+        			if(otherHours == -1 && NumberOfHours == -1){
+        				if(otherDays>31){
+        					otherMonths = 1;
+        					otherDays = otherDays - 31;
+        					try{
+            					Duration temp = new Duration(otherDays, otherMonths, 0, 0);
+            					return temp;
+            				}
+            				catch(InvalidInput ie){
+            					ie.printStackTrace();
+            				}
+        				}
+        				else{
+        					try{
+            					Duration temp = new Duration(otherDays);
+            					return temp;
+            				}
+            				catch(InvalidInput ie){
+            					ie.printStackTrace();
+            				}
+        				}
+        			}
+        			else{
+        				if(otherHours == -1){
+        					otherHours = 0;
+        					otherMinutes = 0;
+        				}
+        				if(NumberOfHours == -1){
+        					NumberOfHours = 0;
+        					NumberOfMinutes = 0;
+        				}
+        				otherMinutes = otherMinutes + NumberOfMinutes;
+        				otherHours = otherHours + NumberOfHours;
+        				if(otherMinutes>59){
+        					otherMinutes = otherMinutes - 60;
+        					otherHours = otherHours+1;
+        				}
+        				if(otherHours>23){
+        					otherHours = otherHours - 24;
+        					otherDays = otherDays + 1;
+        				}
+        				if(otherDays > 31){
+        					otherDays = otherDays - 31;
+        					otherMonths = 1;
+        					try{
+            					Duration temp = new Duration(otherDays, otherMonths, otherHours, otherMinutes);
+            					return temp;
+            				}
+            				catch(InvalidInput ie){
+            					ie.printStackTrace();
+            				}
+        				}
+        				else{
+        					try{
+            					Duration temp = new Duration(otherDays, otherHours, otherMinutes);
+            					return temp;
+            				}
+            				catch(InvalidInput ie){
+            					ie.printStackTrace();
+            				}
+        				}
+        				
+        			}
+        		}// end if days is defined
+        		
+        	}//end if no month is defined
+        	else{
+        		if(otherMonths ==-1){
+        			otherMonths = 0;
+        			
+        		}
+        		if(NumberOfMonths == -1){
+        			NumberOfMonths = 0;
+        		}
+        		otherMonths = otherMonths + NumberOfMonths;
+        		otherMinutes = otherMinutes + NumberOfMinutes;
+        		otherDays = otherDays +NumberOfDays;
+        		otherHours = otherHours + NumberOfHours;
+        		if(otherMinutes>59){
+        			otherMinutes = otherMinutes - 60;
+        			otherHours = otherHours +1;      			
+        		}
+        		if(otherHours>23){
+        			otherHours = otherHours - 24;
+        			otherDays = otherDays + 1;
+        		}
+        		if(otherDays > 31){
+        			otherDays -= 31;
+        			otherMonths += 1;
+        		}
+        		if(otherMonths>12){
+        			otherMonths -= 12;
+        			otherYears = 1;
+        			try{
+    					Duration temp = new Duration(otherDays,otherMonths, otherYears, otherHours, otherMinutes);
+    					return temp;
+    				}
+    				catch(InvalidInput ie){
+    					ie.printStackTrace();
+    				}
+        		}
+        		else{
+        			try{
+    					Duration temp = new Duration(otherDays, otherMonths, otherHours, otherMinutes);
+    					return temp;
+    				}
+    				catch(InvalidInput ie){
+    					ie.printStackTrace();
+    				}
+        		}
+        	}//end if month is defined or not
+        }//end if no year is defined
+        else{
+        	if(otherYears == -1){
+        		otherYears = 0;
+        	}
+        	if(NumberOfYears == -1){
+        		NumberOfYears = 0;
+        	}
+        	otherYears += NumberOfYears;
+        	otherMonths = otherMonths + NumberOfMonths;
+    		otherMinutes = otherMinutes + NumberOfMinutes;
+    		otherDays = otherDays +NumberOfDays;
+    		otherHours = otherHours + NumberOfHours;
+    		if(otherMinutes>59){
+    			otherMinutes = otherMinutes - 60;
+    			otherHours = otherHours +1;      			
+    		}
+    		if(otherHours>23){
+    			otherHours = otherHours - 24;
+    			otherDays = otherDays + 1;
+    		}
+    		if(otherDays > 31){
+    			otherDays -= 31;
+    			otherMonths += 1;
+    		}
+    		if(otherMonths>12){
+    			otherMonths -= 12;
+    			otherYears += 1;  			
+    		}
+    		try{
+				Duration temp = new Duration(otherDays,otherMonths, otherYears, otherHours, otherMinutes);
+				return temp;
+			}
+			catch(InvalidInput ie){
+				ie.printStackTrace();
+			}
+        }//end if one of the year is defined
         return null;
-    }
-
+    } // end of add function
 }
