@@ -6,11 +6,11 @@ import java.util.*;
  * 
  */
 public class SimpleTask extends Task {
-
-    /**
-     * Default constructor
-     */
+	
+	
     public SimpleTask() {
+    	
     }
+    
 
 }
