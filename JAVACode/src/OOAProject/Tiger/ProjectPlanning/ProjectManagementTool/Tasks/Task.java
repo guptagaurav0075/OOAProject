@@ -9,50 +9,15 @@ import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Duration;
  */
 public abstract class Task {
 
-    /**
-     * Default constructor
-     */
     public Task() {
     }
-
-    /**
-     * 
-     */
     private String name;
-
-    /**
-     * 
-     */
     private TaskStatus status;
-
-    /**
-     * 
-     */
     private DateTime startDate;
-
-    /**
-     * 
-     */
     private DateTime endTime;
-
-    /**
-     * 
-     */
     private Set<Resource> resources;
-
-    /**
-     * 
-     */
     private Duration duration;
-
-    /**
-     * 
-     */
     private TaskDescription taskDescription;
-
-    /**
-     * 
-     */
-    private Set<Task> predecessor;
-
+    private Task predecessor;
+    
 }

@@ -4,7 +4,7 @@ public class TestDateTime {
 	public static void main(String[] args) {
 		try{
 		//	DateTime dt = new DateTime(23, 59, 12, 2000, 31,  0, 0,Time_Type.Military);
-			DateTime dt = new DateTime(1,0,12, 2016,31,-1,30, Time_Type.PM);// hour-min-month-year-day-houroffset-minoffset;
+			DateTime dt = new DateTime(1,0,12, 2016,31,-1,30, Time_Type.AM);// hour-min-month-year-day-houroffset-minoffset;
 		//	DateTime dt2 = new DateTime(0,30,1, 2017,1,0,0, Time_Type.Military);;
 			System.out.println(dt);
 			dt.Hours12FormatToMilitary();
