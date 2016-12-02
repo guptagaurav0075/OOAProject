@@ -4,97 +4,210 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * 
+ *
  */
-public class Money implements Serializable{
-    private int MajorAmount;
-    private int MinorAmount;
-    private Currency currencyType;
-    
-    
-    public Money(int majorAmount, int minorAmount, Currency currencyType) {
-		MajorAmount = majorAmount;
-		MinorAmount = minorAmount;
-		this.currencyType = currencyType;
+public class Money implements Serializable, Comparable<Money>{
+
+	private int majorAmount;
+	private int minorAmount;
+	private Currency currency;
+
+	public Money(int majorAmount, int minorAmount, Currency currency) {
+		this.majorAmount = majorAmount;
+		this.minorAmount = minorAmount;
+		this.currency = currency;
 	}
-	public Money addMoney(Money other) {
-       if(this.currencyType.equals(other.currencyType.getISOType())){
-    	  Money mon = new Money(MajorAmount, MinorAmount, currencyType);
-    	  mon.MajorAmount  = mon.MajorAmount+ other.MajorAmount;
-    	  mon.MinorAmount = mon.MinorAmount+ other.MinorAmount;
-    	  int offset = mon.MinorAmount/mon.currencyType.getRollOver();
-    	  mon.MajorAmount =mon.MajorAmount + offset;
-    	  mon.MinorAmount = mon.MinorAmount % mon.currencyType.getRollOver();
-    	  return mon;
-       }
-        return null;
-    }
-    public Money subMoney(Money other) {
-    	if(this.currencyType.equals(other.currencyType.getISOType())){
-    		if(this.MajorAmount>other.MajorAmount){
-    			Money mon = new Money(MajorAmount, MinorAmount, currencyType);
-    			mon.MajorAmount  = mon.MajorAmount - other.MajorAmount;
-    			mon.MinorAmount = mon.MinorAmount - other.MinorAmount;
-    			if(mon.MinorAmount<0){
-    				mon.MinorAmount=mon.currencyType.getRollOver() - mon.MinorAmount;
-    			}
-    			mon.MajorAmount =mon.MajorAmount -1;
-      		  return mon;
-    		}
-    		if(this.MajorAmount<other.MajorAmount){
-    		  Money mon = new Money(other.MajorAmount, other.MinorAmount, other.currencyType);
-    		  mon.MajorAmount  = mon.MajorAmount - MajorAmount;
-    		  mon.MinorAmount = mon.MinorAmount - MinorAmount;
-    		  if(mon.MinorAmount<0){
-    			 mon.MinorAmount=mon.currencyType.getRollOver() - mon.MinorAmount;
-    		  }
-    		  mon.MajorAmount =mon.MajorAmount -1;
-    		  return mon;
-    		}
-    	}
-          return null;
-    }
-    public int majorToMinor() {
-    	
-    	return MinorAmount + (MajorAmount * this.currencyType.getRollOver());
-  
-    }
-    public Money minorToMajor() {
-        int offset;
-        Money mon = new Money(MajorAmount,MinorAmount, currencyType );
-        offset = mon.MinorAmount/ mon.currencyType.getRollOver();
-        mon.MajorAmount = mon.MajorAmount + offset;
-        mon.MinorAmount = mon.MinorAmount % mon.currencyType.getRollOver();
-        return mon;
-    }
+
+	public Money add(Money other){
+
+		if(!currency.equals(other.getCurrency())){
+			return null;
+		}
+
+		int major = majorAmount + other.getMajorAmount();
+		int minor = minorAmount + other.getMinorAmount();
+
+		if(minor >= currency.getRollOverVal()){
+			major += minor / currency.getRollOverVal();
+			minor = minor % currency.getRollOverVal();
+		}
+
+		Money newVal = new Money(major, minor, currency);
+
+		return newVal;
+	}
+
+	public Money difference(Money other){
+
+		if(!currency.equals(other.getCurrency())){
+			return null;
+		}
+
+		int myMajor = majorAmount;
+		int myMinor = minorAmount;
+
+		if(myMajor < other.getMajorAmount()){
+
+			int newMinor = other.getMinorAmount();
+			int newMajor = other.getMajorAmount();
+
+			if(newMinor < myMinor){
+				newMinor += other.getCurrency().getRollOverVal();
+				newMajor -= 1;
+			}
+
+			int major = newMajor - myMajor;
+			int minor = newMinor - myMinor;
+
+			Money newVal = new Money(major, minor, currency);
+			return newVal;
+		} else {
+
+			if(myMinor < other.getMinorAmount()){
+				myMinor += currency.getRollOverVal();
+				myMajor -= 1;
+			}
+
+			int major = myMajor - other.getMajorAmount();
+			int minor = myMinor - other.getMinorAmount();
+
+			Money newVal = new Money(major, minor, currency);
+
+			return newVal;
+		}
+	}
+
+	public Money div(int constant){
+
+		double major = majorAmount;
+		double minor = minorAmount;
+
+		major = major / constant;
+		minor = minor / constant;
+
+		double majorDecimal = major - Math.floor(major);
+		double minorExtra = majorDecimal * currency.getRollOverVal();
+
+		minor += minorExtra;
+
+		int majorVal = (int) floor(major);
+		int minorVal = (int) floor(minor);
+
+		if(minor > currency.getRollOverVal()){
+			majorVal += (int) minor / currency.getRollOverVal();
+			minorVal = (int) minor % currency.getRollOverVal();
+		}
+
+		Money newVal = new Money(majorVal, minorVal, currency);
+
+		return newVal;
+	}
+
+	public Money multiply(int constant){
+
+		int newMajor = majorAmount * constant;
+		int newMinor = minorAmount * constant;
+
+		if(newMinor > currency.getRollOverVal()){
+			newMajor += newMinor / currency.getRollOverVal();
+			newMinor = newMinor % currency.getRollOverVal();
+		}
+
+		Money newVal = new Money(newMajor, newMinor, currency);
+
+		return newVal;
+	}
+
+
+	public Money minorToMajor() {
+		int offset;
+
+		Money money = new Money(majorAmount,minorAmount, currency);
+
+		offset = money.minorAmount/ money.currency.getRollOverVal();
+		money.majorAmount = money.majorAmount + offset;
+		money.minorAmount = money.minorAmount % money.currency.getRollOverVal();
+
+		return money;
+	}
+
+	public int majorToMinor() {
+		int minorTotal = minorAmount + (majorAmount * this.currency.getRollOverVal());
+		return minorTotal;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Money money = (Money) o;
+
+		if (majorAmount != money.majorAmount) return false;
+		if (minorAmount != money.minorAmount) return false;
+		return currency.equals(money.currency);
+
+	}
+
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + MajorAmount;
-		result = prime * result + MinorAmount;
-		result = prime * result + ((currencyType == null) ? 0 : currencyType.hashCode());
+		int result = majorAmount;
+		result = 31 * result + minorAmount;
+		result = 31 * result + currency.hashCode();
 		return result;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Money other = (Money) obj;
-		if (MajorAmount != other.MajorAmount)
-			return false;
-		if (MinorAmount != other.MinorAmount)
-			return false;
-		if (currencyType == null) {
-			if (other.currencyType != null)
-				return false;
-		} else if (!currencyType.equals(other.currencyType))
-			return false;
-		return true;
+
+
+	public int getMajorAmount() {
+		return majorAmount;
 	}
-    
+
+	public void setMajorAmount(int majorAmount) {
+		this.majorAmount = majorAmount;
+	}
+
+	public int getMinorAmount() {
+		return minorAmount;
+	}
+
+	public void setMinorAmount(int minorAmount) {
+		this.minorAmount = minorAmount;
+	}
+
+	public Currency getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
+	}
+
+	@Override
+	public int compareTo(Money other) {
+
+		if(!currency.equals(other.getCurrency())){
+			return Integer.MIN_VALUE;
+		}
+
+		if (majorAmount > other.getMajorAmount()){
+			return 1;
+		}
+		else if (majorAmount == other.getMajorAmount()){
+			if (minorAmount > other.getMinorAmount())
+				return 1;
+			else if(minorAmount == other.getMinorAmount()){
+				return 0;
+			} else {
+				return -1;
+			}
+		} else {
+			return -1;
+		}
+
+	}
+
+	@Override
+	public String toString(){
+		return Integer.toString(majorAmount) + " " + currency.getMajorName() + " " + Integer.toString(minorAmount) + " " + currency.getMinorName();
+	}
 }
