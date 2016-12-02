@@ -5,18 +5,18 @@ import java.util.*;
 public class TaskDescription {
     public TaskDescription() {
     }
-    private String Description;
-    private String AdditionalComments;
+    private String description;
+    private String additionalComments;
 	public String getDescription() {
-		return Description;
+		return description;
 	}
 	public void setDescription(String description) {
-		Description = description;
+		this.description = description;
 	}
 	public String getAdditionalComments() {
-		return AdditionalComments;
+		return additionalComments;
 	}
 	public void setAdditionalComments(String additionalComments) {
-		AdditionalComments = additionalComments;
+		this.additionalComments = additionalComments;
 	}
 }

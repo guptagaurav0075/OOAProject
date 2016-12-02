@@ -2,25 +2,35 @@ package OOAProject.Tiger.ProjectPlanning.ProjectManagementTool.Resources;
 
 import java.util.*;
 import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Refrences.Person;
+import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Duration;
+import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Time.DateTime;
 /**
  * 
  */
-public class Labor extends SharableResource {
+public class Labor extends ShareableResource {
 
-    /**
-     * Default constructor
-     */
-    public Labor() {
+
+	public Labor() {
     }
 
-    /**
-     * 
-     */
-    private String LaborID;
-
-    /**
-     * 
-     */
-    private Person Actor;
-
+    private String laborId;
+    private Person actor;
+    int bookingsCount = listOfBookings.size();
+    public Boolean makeBooking(DateTime startDate, Duration duration){
+		if (isAvailable(startDate, duration ) == true){
+			addBooking(startDate, duration);
+		}
+		
+		return null;
+    }
+	@Override
+	public Boolean isAvailable(DateTime startDate, Duration duration) {
+		for(int i=0; i<bookingsCount; i++){
+			if (listOfBookings.get(i).getStartDate() == startDate){
+				// check for booking before startDate
+				break;
+				}	
+		}
+		return null;
+	}
 }

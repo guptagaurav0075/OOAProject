@@ -16,7 +16,7 @@ public abstract class Task {
     private TaskStatus status =  TaskStatus.NOT_STARTED;
     private DateTime startDate;
     private DateTime endTime;
-    private List<Resource> resources = new ArrayList<Resource>();
+//    private List<Resource> resources = new ArrayList<Resource>();
     private Duration duration;
     private TaskDescription taskDescription;
     private List<Task> predecessor = new ArrayList<Task>();
@@ -44,12 +44,12 @@ public abstract class Task {
 	public void setEndTime(DateTime endTime) {
 		this.endTime = endTime;
 	}
-	public List<Resource> getResources() {
-		return resources;
-	}
-	public void setResources(Resource resources) {
-		this.resources.add(resources);
-	}
+//	public List<Resource> getResources() {
+//		return resources;
+//	}
+//	public void setResources(Resource resources) {
+//		this.resources.add(resources);
+//	}
 	public Duration getDuration() {
 		return duration;
 	}
@@ -70,7 +70,9 @@ public abstract class Task {
 			}
 			temp.status = TaskStatus.IN_PROGRESS;
 			temp.getPredecessor();
+			//System.out.println("Task ID :"+ temp.getTaskID()+ "\t Size : "+ temp.predecessorSize() );
 		}
+		//System.out.println("Task ID :"+predecessor.size()+");
 		return predecessor;
 	}
 	public void setPredecessor(Task predecessor) {

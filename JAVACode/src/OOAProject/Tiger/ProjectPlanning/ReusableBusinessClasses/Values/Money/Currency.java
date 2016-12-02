@@ -1,5 +1,6 @@
 package OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Money;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**

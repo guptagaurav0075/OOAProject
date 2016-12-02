@@ -16,6 +16,6 @@ public class CompositeTask extends Task {
     /**
      * 
      */
-    private Set<Task> subtask;
+    private Set<Task> subtasks;
 
 }

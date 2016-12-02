@@ -1,5 +1,6 @@
 package OOAProject.Tiger.ProjectPlanning.ProjectManagementTool.Tasks;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import OOAProject.Tiger.ProjectPlanning.ProjectManagementTool.Resources.Resource;
@@ -9,6 +10,7 @@ import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Time.Date
 //import java.util.*;
 
 public class SimpleTask extends Task {
+	private List<Resource> resources = new ArrayList<Resource>();
     public SimpleTask() {
     	super();
     }
@@ -40,10 +42,10 @@ public class SimpleTask extends Task {
 		super.setEndTime(endTime);
 	}
 	public List<Resource> getResources() {
-		return super.getResources();
+		return getResources();
 	}
 	public void setResources(Resource resources) {
-		super.setResources(resources);
+		this.resources.add(resources);
 	}
 	public Duration getDuration() {
 		return super.getDuration();
