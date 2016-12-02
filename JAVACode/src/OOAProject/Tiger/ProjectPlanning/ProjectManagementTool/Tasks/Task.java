@@ -70,14 +70,10 @@ public abstract class Task {
 			}
 			temp.status = TaskStatus.IN_PROGRESS;
 			temp.getPredecessor();
-			//System.out.println("Task ID :"+ temp.getTaskID()+ "\t Size : "+ temp.predecessorSize() );
 		}
-		//System.out.println("Task ID :"+predecessor.size()+");
 		return predecessor;
 	}
 	public void setPredecessor(Task predecessor) {
 		this.predecessor.add(predecessor);
-		//this.predecessor = predecessor;
 	}
-    
 }
