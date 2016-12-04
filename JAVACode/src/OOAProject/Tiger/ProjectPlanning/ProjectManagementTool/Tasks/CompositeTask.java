@@ -15,18 +15,18 @@ public class CompositeTask extends Task {
     /**
      * Default constructor
      */
-	public CompositeTask(String name, TaskStatus status, DateTime startDate, Duration duration,
+	public CompositeTask(String name, TaskStatus status, Duration duration,
 			TaskDescription taskDescription) {
-		super(name, status, startDate, duration, taskDescription);
+		super(name, status,  duration, taskDescription);
 	}
-	public CompositeTask(String name, DateTime startDate, Duration duration) {
-		super(name, startDate, duration);
+	public CompositeTask(String name, Duration duration) {
+		super(name, duration);
 	}
-	public CompositeTask(String name, TaskStatus status, DateTime startDate, Duration duration) {
-		super(name, status, startDate, duration);
+	public CompositeTask(String name, TaskStatus status, Duration duration) {
+		super(name, status, duration);
 	}
-	public CompositeTask(String name, DateTime startDate, Duration duration, TaskDescription taskDescription) {
-		super(name, startDate, duration, taskDescription);
+	public CompositeTask(String name, Duration duration, TaskDescription taskDescription) {
+		super(name,  duration, taskDescription);
 	}    /**
      * 
      */

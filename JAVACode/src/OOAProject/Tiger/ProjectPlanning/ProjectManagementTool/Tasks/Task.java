@@ -20,7 +20,7 @@ public abstract class Task {
     private TaskDescription taskDescription;
     private List<Task> predecessor = new ArrayList<Task>();
 
-	public Task(String name, TaskStatus status, DateTime startDate, Duration duration) {
+	public Task(String name, TaskStatus status, Duration duration) {
 		super();
 		this.name = name;
 		this.status = status;
@@ -28,7 +28,7 @@ public abstract class Task {
 		this.duration = duration;
 	}
     
-	public Task(String name, TaskStatus status, DateTime startDate, Duration duration,
+	public Task(String name, TaskStatus status, Duration duration,
 			TaskDescription taskDescription) {
 		super();
 		this.name = name;
@@ -38,14 +38,14 @@ public abstract class Task {
 		this.taskDescription = taskDescription;
 	}
 		
-	public Task(String name, DateTime startDate, Duration duration, TaskDescription taskDescription) {
+	public Task(String name, Duration duration, TaskDescription taskDescription) {
 		super();
 		this.name = name;
 		this.startDate = startDate;
 		this.duration = duration;
 		this.taskDescription = taskDescription;
 	}
-	public Task(String name, DateTime startDate, Duration duration) {
+	public Task(String name,  Duration duration) {
 		super();
 		this.name = name;
 		this.startDate = startDate;
@@ -88,16 +88,6 @@ public abstract class Task {
 		this.taskDescription = taskDescription;
 	}
 	public List<Task> getPredecessor() {
-		for(int index  = 0;index<predecessor.size();index++){
-			Task temp = predecessor.get(index);
-			if(temp.status == TaskStatus.COMPLETED){
-				return null;
-			}
-			temp.status = TaskStatus.IN_PROGRESS;
-			temp.getPredecessor();
-			//System.out.println("Task ID :"+ temp.getTaskID()+ "\t Size : "+ temp.predecessorSize() );
-		}
-		//System.out.println("Task ID :"+predecessor.size()+");
 		return predecessor;
 	}
 	public void setPredecessor(Task predecessor) {

@@ -18,20 +18,5 @@ public class Schedule {
      */
     private Task finalTask;
 
-    /**
-     * @return
-     */
-    public void GenerateSchedule() {
-        // TODO implement here
-        //return null;
-    }
-
-    /**
-     * @return
-     */
-    public void UpdateSchedule() {
-        // TODO implement here
-        //return null;
-    }
 
 }
