@@ -11,9 +11,38 @@ import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Time.Date
 
 public class SimpleTask extends Task {
 	private List<Resource> resources = new ArrayList<Resource>();
-    public SimpleTask() {
-    	super();
-    }
+
+	public SimpleTask(String name, TaskStatus status, DateTime startDate, Duration duration,
+			TaskDescription taskDescription, List<Resource> resources) {
+		super(name, status, startDate, duration, taskDescription);
+		this.resources = resources;
+	}
+	public SimpleTask(String name, DateTime startDate, Duration duration, List<Resource> resources) {
+		super(name, startDate, duration);
+		this.resources = resources;
+	}
+	public SimpleTask(String name, TaskStatus status, DateTime startDate, Duration duration, List<Resource> resources) {
+		super(name, status, startDate, duration);
+		this.resources = resources;
+	}
+	public SimpleTask(String name, DateTime startDate, Duration duration, TaskDescription taskDescription, List<Resource> resources) {
+		super(name, startDate, duration, taskDescription);
+		this.resources = resources;
+	}
+	public SimpleTask(String name, TaskStatus status, DateTime startDate, Duration duration,
+			TaskDescription taskDescription) {
+		super(name, status, startDate, duration, taskDescription);
+	}
+	public SimpleTask(String name, DateTime startDate, Duration duration) {
+		super(name, startDate, duration);
+	}
+	public SimpleTask(String name, TaskStatus status, DateTime startDate, Duration duration) {
+		super(name, status, startDate, duration);
+		this.resources = resources;
+	}
+	public SimpleTask(String name, DateTime startDate, Duration duration, TaskDescription taskDescription) {
+		super(name, startDate, duration, taskDescription);
+	}
 
 	public List<Resource> getResources() {
 		return resources;

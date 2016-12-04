@@ -10,15 +10,47 @@ import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Duration;
 
 public abstract class Task {
 
-    public Task() {
-    }
-    private String name;
+
+
+	private String name;
     private TaskStatus status =  TaskStatus.NOT_STARTED;
     private DateTime startDate;
     private DateTime endTime;
     private Duration duration;
     private TaskDescription taskDescription;
     private List<Task> predecessor = new ArrayList<Task>();
+
+	public Task(String name, TaskStatus status, DateTime startDate, Duration duration) {
+		super();
+		this.name = name;
+		this.status = status;
+		this.startDate = startDate;
+		this.duration = duration;
+	}
+    
+	public Task(String name, TaskStatus status, DateTime startDate, Duration duration,
+			TaskDescription taskDescription) {
+		super();
+		this.name = name;
+		this.status = status;
+		this.startDate = startDate;
+		this.duration = duration;
+		this.taskDescription = taskDescription;
+	}
+		
+	public Task(String name, DateTime startDate, Duration duration, TaskDescription taskDescription) {
+		super();
+		this.name = name;
+		this.startDate = startDate;
+		this.duration = duration;
+		this.taskDescription = taskDescription;
+	}
+	public Task(String name, DateTime startDate, Duration duration) {
+		super();
+		this.name = name;
+		this.startDate = startDate;
+		this.duration = duration;
+	}
 	public String getName() {
 		return name;
 	}

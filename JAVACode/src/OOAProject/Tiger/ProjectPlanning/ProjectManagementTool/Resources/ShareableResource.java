@@ -17,8 +17,6 @@ public abstract class ShareableResource extends Resource {
 	}
 	private LinkedList<Booking> bookings = new LinkedList<Booking>();
 	//protected List<Booking> listOfBookings = new ArrayList<Booking>();
-    public ShareableResource() {
-    }
     public abstract boolean isAvailable(DateTime startDate, Duration duration); 
 
     public abstract boolean makeBooking(DateTime StartDate, Duration duration) throws InvalidInput;

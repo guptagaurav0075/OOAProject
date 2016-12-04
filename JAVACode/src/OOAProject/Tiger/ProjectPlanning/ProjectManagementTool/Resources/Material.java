@@ -1,18 +1,13 @@
 package OOAProject.Tiger.ProjectPlanning.ProjectManagementTool.Resources;
 
 
+import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Money.Money;
 import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Quantity.Quantity;
 
 /**
  * 
  */
 public class Material extends Resource {
-
-    /**
-     * Default constructor
-     */
-    public Material() {
-    }
 
     private Quantity quantity;
 
@@ -21,6 +16,14 @@ public class Material extends Resource {
 	}
 
 	public void setQuantity(Quantity quantity) {
+		this.quantity = quantity;
+	}
+
+	
+
+	public Material(String name, Money cost, Quantity quantity) {
+		super(name, cost);
+		// TODO Auto-generated constructor stub
 		this.quantity = quantity;
 	}
     
