@@ -16,7 +16,6 @@ public abstract class Task {
     private TaskStatus status =  TaskStatus.NOT_STARTED;
     private DateTime startDate;
     private DateTime endTime;
-//    private List<Resource> resources = new ArrayList<Resource>();
     private Duration duration;
     private TaskDescription taskDescription;
     private List<Task> predecessor = new ArrayList<Task>();
@@ -44,12 +43,6 @@ public abstract class Task {
 	public void setEndTime(DateTime endTime) {
 		this.endTime = endTime;
 	}
-//	public List<Resource> getResources() {
-//		return resources;
-//	}
-//	public void setResources(Resource resources) {
-//		this.resources.add(resources);
-//	}
 	public Duration getDuration() {
 		return duration;
 	}

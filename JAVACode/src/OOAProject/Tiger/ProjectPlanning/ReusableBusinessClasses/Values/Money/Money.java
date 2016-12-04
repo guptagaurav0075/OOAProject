@@ -90,8 +90,8 @@ public class Money implements Serializable, Comparable<Money>{
 
 		minor += minorExtra;
 
-		int majorVal = (int) floor(major);
-		int minorVal = (int) floor(minor);
+		int majorVal = (int) Math.floor(major);
+		int minorVal = (int) Math.floor(minor);
 
 		if(minor > currency.getRollOverVal()){
 			majorVal += (int) minor / currency.getRollOverVal();

@@ -3,6 +3,10 @@ package OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values;
 import java.time.Year;
 
 import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.InvalidInput;;
+/**
+ * @author Gaurav
+ *
+ */
 public class Duration {
 	private int NumberOfDays = -1;
     private int NumberOfMonths = -1;
@@ -31,10 +35,23 @@ public class Duration {
 		NumberOfMinutes = numberOfMinutes;
 	}
 	
+	public Duration(int numberOfDays, int numberOfMonths, int numberOfYears) throws InvalidInput {
+		if(numberOfDays>31 ||numberOfDays<0){
+    		throw new InvalidInput("Days value entered is Incorrect");
+    	}
+		if(numberOfMonths<0 || numberOfMonths>12){
+			throw new InvalidInput("Months value Entered is Incorrect");
+		}
+		if(numberOfYears<0){
+			throw new InvalidInput("Year value entered is Incorrect");
+		}
+		NumberOfDays = numberOfDays;
+		NumberOfMonths = numberOfMonths;
+		NumberOfYears = numberOfYears;
+	}
 
-
-
-	public Duration(int numberOfDays, int numberOfHours, int numberOfMinutes) throws InvalidInput {
+/*
+	public Duration(int numberOfDays, int numberOfM, int numberOfMinutes) throws InvalidInput {
 		if(numberOfDays>31 ||numberOfDays<0){
     		throw new InvalidInput("Days value entered is Incorrect");
     	}
@@ -48,7 +65,7 @@ public class Duration {
 		NumberOfHours = numberOfHours;
 		NumberOfMinutes = numberOfMinutes;
 	}
-	
+*/	
 
 
 
@@ -72,6 +89,11 @@ public class Duration {
 		NumberOfMinutes = numberOfMinutes;
 	}
 	
+	
+
+
+
+
 	public Duration(int numberOfDays, int numberOfMonths, int numberOfYears, int numberOfHours, int numberOfMinutes) throws InvalidInput{
 		if(numberOfDays>31 ||numberOfDays<0){
     		throw new InvalidInput("Days value entered is Incorrect");
