@@ -257,7 +257,6 @@ public class DateTime implements Serializable{
 			}catch(InvalidInput ie){
 				System.out.println(ie.getMessage());
 			}
-			
 		}
 		return null;
 	}

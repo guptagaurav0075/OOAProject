@@ -11,8 +11,15 @@ public abstract class Resource {
      */
     public Resource() {
     }
+    
 
-    private String name;
+    public Resource(String name, Money cost) {
+		this.name = name;
+		this.cost = cost;
+	}
+
+
+	private String name;
 
     private Money cost;
 
