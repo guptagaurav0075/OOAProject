@@ -19,6 +19,15 @@ public abstract class Task {
     private Duration duration;
     private TaskDescription taskDescription;
     private List<Task> predecessor = new ArrayList<Task>();
+    private boolean visited = false;
+
+	public boolean isVisited() {
+		return visited;
+	}
+
+	public void setVisited(boolean visited) {
+		this.visited = visited;
+	}
 
 	public Task(String name, TaskStatus status, Duration duration) {
 		super();
@@ -93,4 +102,5 @@ public abstract class Task {
 	public void setPredecessor(Task predecessor) {
 		this.predecessor.add(predecessor);
 	}
+	
 }

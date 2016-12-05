@@ -50,4 +50,8 @@ public class SimpleTask extends Task {
 	public void setResources(Resource resources) {
 		this.resources.add(resources);
 	}
+	@Override
+	public String toString() {
+		return "Task [ Name: "+getName()+" Start Date :"+getStartDate()+" Task Status :"+ getStatus()+"]";
+	}
 }
