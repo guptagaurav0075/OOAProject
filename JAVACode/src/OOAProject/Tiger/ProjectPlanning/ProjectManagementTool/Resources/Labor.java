@@ -53,54 +53,50 @@ public class Labor extends ShareableResource {
 		}else{
 			throw new InvalidInput("Resource is already booked, try another date");
 		}
-    }	@Override
+    }
+
+    @Override
 	public boolean isAvailable(DateTime startDate, Duration duration) {
 		LinkedList<Booking> bookings = getBookings();
+
 		if(bookings.size()==0){
 			return true;
 		}
 		else{
-			boolean flag = false; // it means the resource is not booked
+			boolean flag = true; // it means the resource is not booked
 			try{
 				DateTime tempStartDate = startDate;
 				DateTime tempEndDate = new DateTime(duration.getNumberOfMonths(), duration.getNumberOfYears(), duration.getNumberOfDays());
 				tempEndDate = tempEndDate.add(startDate);
-				
-			
-				for(int index = 0; index<bookings.size();index++){
-					while(flag!=true){
-						if(bookings.get(index).getStartDate().equals(tempStartDate)){
-							flag = true;
-							break;
-						}
-						else{
-							DateTime OneDayAddition = new DateTime(0,0,1);// month-year-day
-							tempStartDate = tempStartDate.add(OneDayAddition);//incremented by one day
-							if(tempStartDate.equals(tempEndDate)){
-								if(bookings.get(index).getStartDate().equals(tempStartDate)){
-									flag = true;
-									break;
-								}
-								else{
-									break;
-								}
-							}
-						}// end of checking for one day
-					}// end of checking for one booking;
-					if(flag == true){
-						break;
+
+				System.out.println(tempStartDate);
+				System.out.println(tempEndDate);
+
+				System.out.println(tempStartDate.compareTo(tempEndDate));
+
+				checkBookings: for(int index = 0; index < bookings.size(); index++){
+					DateTime bookingDate = bookings.get(index).getStartDate();
+					Duration endBookDuration = bookings.get(index).getDuration();
+					DateTime bookDateDuration = new DateTime(endBookDuration.getNumberOfMonths(), endBookDuration.getNumberOfYears(), endBookDuration.getNumberOfDays());
+					DateTime bookEndDate = bookingDate.add(bookDateDuration);
+
+					System.out.println(bookingDate);
+					System.out.println(bookEndDate);
+
+					if (!((tempStartDate.compareTo(bookingDate) > 0) && (tempStartDate.compareTo(bookEndDate) < 0))
+							|| !((tempEndDate.compareTo(bookingDate) > 0) && (tempEndDate.compareTo(bookEndDate) < 0))) {
+
+						flag = false;
+						break checkBookings;
 					}
 				}
-			}catch(InvalidInput ie){
+			}
+			catch(InvalidInput ie){
 				System.out.println(ie.getMessage());
 			}
-			if(flag == true){
-				return false; // there is a booking on that day
-			}
-			else{
-				return true;
-			}
-		}// end of checking whether the booking is available or not;	
+
+			return flag;
+		}// end of checking whether the booking is available or not;
 	}
 	@Override
 	public void addBooking(DateTime startDate, Duration duration) {

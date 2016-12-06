@@ -2,12 +2,12 @@ package OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Time;
 import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.InvalidInput;
 import java.io.Serializable;
 
-public class DateTime implements Serializable{
+public class DateTime implements Serializable, Comparable<DateTime>{
 
     private int hour = -1; // -1 assigned to make sure that hour is assigned
-    private int Minute;
-    private int Month;
-    private int Year;
+    private int Minute = 0;
+    private int Month = 0;
+    private int Year = 0;
     private int Day = -1; //  -1 assigned to make sure that hour is assigned
     public int hourOffset;
     public int minOffset;
@@ -97,7 +97,7 @@ public class DateTime implements Serializable{
     	if(year<0){
 			throw new InvalidInput("Year valud is Invalid");
 		}
-		if(month<1 || month>12){
+		if(month < 0 || month > 12){
 			throw new InvalidInput("Month value is Invalid");
 		}
 		else{
@@ -535,4 +535,56 @@ public class DateTime implements Serializable{
 		}
 		
 	}// end of equals function
+
+
+	public int compareTo(DateTime other) {
+
+		if (other.timeType == timeType){
+
+			if (other.getHourOffset() != hourOffset && other.getMinOffset() != minOffset) {
+				//Convert to same UTC values
+			}
+			if (Year < other.getYear()) {
+				return -1;
+			} else if (Year > other.getYear()) {
+				return 1;
+			} else {
+
+				if (Month < other.getMonth()) {
+					return -1;
+				} else if (Month > other.getMonth()) {
+					return 1;
+				} else {
+
+					if (Day < other.getDay()) {
+						return -1;
+					} else if (Day > other.getDay()) {
+						return 1;
+					} else {
+
+						if (hour < other.getHour()) {
+							return -1;
+						} else if (hour > other.getHour()) {
+							return 1;
+						} else {
+
+							if (Minute < other.getMinute()) {
+								return -1;
+							} else if (Minute > other.getMinute()) {
+								return 1;
+							} else {
+								return 0;
+							}
+						}
+					}
+				}
+			}
+
+		}
+		return Integer.MIN_VALUE;
+	}
+
+
+
+
 }// end of class

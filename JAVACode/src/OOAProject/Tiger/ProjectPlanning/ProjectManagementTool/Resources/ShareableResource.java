@@ -22,10 +22,13 @@ public abstract class ShareableResource extends Resource {
     public abstract boolean makeBooking(DateTime StartDate, Duration duration) throws InvalidInput;
 
     public abstract void addBooking(DateTime startDate, Duration duration); 
+
 	public LinkedList<Booking> getBookings() {
 		return bookings;
 	}
+
 	public void setBookings(Booking book) {
 		bookings.add(book);
 	}
+
 }

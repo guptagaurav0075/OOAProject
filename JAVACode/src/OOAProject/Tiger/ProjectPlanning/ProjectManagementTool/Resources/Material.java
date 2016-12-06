@@ -19,7 +19,6 @@ public class Material extends Resource {
 		this.quantity = quantity;
 	}
 
-	
 
 	public Material(String name, Money cost, Quantity quantity) {
 		super(name, cost);

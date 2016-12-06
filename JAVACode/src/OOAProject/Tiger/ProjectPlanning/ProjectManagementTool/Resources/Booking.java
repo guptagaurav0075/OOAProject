@@ -32,6 +32,6 @@ public class Booking {
 
 	 @Override
      public String toString() {
-         return "Booking: startDate = " + startDate + "; Duration = " + duration + "; hashCode = " + hashCode();
+         return "Booking: startDate = " + startDate + "; Duration = " + duration;
      }
 }

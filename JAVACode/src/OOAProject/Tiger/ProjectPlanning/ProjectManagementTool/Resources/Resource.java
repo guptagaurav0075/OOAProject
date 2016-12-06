@@ -12,6 +12,7 @@ public abstract class Resource {
 	}
 	private String name;
     private Money cost;
+
 	public String getName() {
 		return name;
 	}
@@ -23,5 +24,10 @@ public abstract class Resource {
 	}
 	public void setCost(Money cost) {
 		this.cost = cost;
+	}
+
+	@Override
+	public String toString(){
+		return "Resource: " + name + "Cost: " + cost;
 	}
 }

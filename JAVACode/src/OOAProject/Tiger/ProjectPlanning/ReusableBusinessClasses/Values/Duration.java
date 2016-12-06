@@ -20,8 +20,6 @@ public class Duration {
     	}
 		NumberOfDays = numberOfDays;
 	}
-    
-    
 
 
 	public Duration(int numberOfHours, int numberOfMinutes) throws InvalidInput{
@@ -50,25 +48,6 @@ public class Duration {
 		NumberOfYears = numberOfYears;
 	}
 
-/*
-	public Duration(int numberOfDays, int numberOfM, int numberOfMinutes) throws InvalidInput {
-		if(numberOfDays>31 ||numberOfDays<0){
-    		throw new InvalidInput("Days value entered is Incorrect");
-    	}
-		if(numberOfHours>23 || numberOfHours<0){
-			throw new InvalidInput("Hours value entered is Incorrect");
-		}
-		if(numberOfMinutes<0||numberOfMinutes>59){
-			throw new InvalidInput("Minutes value entered is Incorrect");
-		}
-		NumberOfDays = numberOfDays;
-		NumberOfHours = numberOfHours;
-		NumberOfMinutes = numberOfMinutes;
-	}
-*/	
-
-
-
 
 	public Duration(int numberOfDays, int numberOfMonths, int numberOfHours, int numberOfMinutes) throws InvalidInput{
 		if(numberOfDays>31 ||numberOfDays<0){
@@ -88,10 +67,6 @@ public class Duration {
 		NumberOfHours = numberOfHours;
 		NumberOfMinutes = numberOfMinutes;
 	}
-	
-	
-
-
 
 
 	public Duration(int numberOfDays, int numberOfMonths, int numberOfYears, int numberOfHours, int numberOfMinutes) throws InvalidInput{
@@ -146,13 +121,9 @@ public class Duration {
 	}
 
 
-
-
 	public int getNumberOfMonths() {
 		return NumberOfMonths;
 	}
-
-
 
 
 	public int getNumberOfYears() {
@@ -160,13 +131,9 @@ public class Duration {
 	}
 
 
-
-
 	public int getNumberOfHours() {
 		return NumberOfHours;
 	}
-
-
 
 
 	public int getNumberOfMinutes() {
@@ -174,9 +141,8 @@ public class Duration {
 	}
 
 
-
-
 	public Duration add(Duration other) {
+
         int otherMinutes = other.getNumberOfMinutes();
         int otherHours = other.getNumberOfHours();
         int otherDays = other.getNumberOfDays();
