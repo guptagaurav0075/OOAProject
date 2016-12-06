@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.*;
 import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.*;
 import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Address.Address;
+import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Telephone.PhoneNumberType;
 import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Telephone.Telephone;
 import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Time.DateTime;
 
@@ -14,13 +15,13 @@ public class Person implements Serializable{
 	
 	private String name;
     private String nationality;
-    private Set<Telephone> phoneNumber;
+    private Telephone phoneNumber;
     private GenderType gender;
     private Address address;
     private Title title;
     private Email emailID;
     private DateTime DOB;
-    public Person(String name, String nationality, Set<Telephone> phoneNumber, GenderType gender, Address address,
+    public Person(String name, String nationality, Telephone phoneNumber, GenderType gender, Address address,
 			Title title, Email emailID, DateTime dOB) throws InvalidInput {
 		super();
 		if(name.length()==0){
@@ -45,14 +46,14 @@ public class Person implements Serializable{
 		DOB = dOB;
 		
 	}
-    
-    public String getName() {
+
+	public String getName() {
 		return name;
 	}
 	public String getNationality() {
 		return nationality;
 	}
-	public Set<Telephone> getPhoneNumber() {
+	public Telephone getPhoneNumber() {
 		return phoneNumber;
 	}
 	public GenderType getGender() {
@@ -137,6 +138,5 @@ public class Person implements Serializable{
 		return "Person [name=" + name + ", nationality=" + nationality + ", phoneNumber=" + phoneNumber + ", gender="
 				+ gender + ", address=" + address + ", title=" + title + ", emailID=" + emailID + ", DOB=" + DOB + "]";
 	}
-	 
-    
+
 }
