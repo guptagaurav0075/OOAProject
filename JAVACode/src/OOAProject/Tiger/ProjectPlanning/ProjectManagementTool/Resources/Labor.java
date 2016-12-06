@@ -66,8 +66,8 @@ public class Labor extends ShareableResource {
 			boolean flag = true; // it means the resource is not booked
 			try{
 				DateTime tempStartDate = startDate;
-				DateTime tempEndDate = new DateTime(duration.getNumberOfMonths(), duration.getNumberOfYears(), duration.getNumberOfDays());
-				tempEndDate = tempEndDate.add(startDate);
+				DateTime tempEndDate = startDate;
+				tempEndDate = tempEndDate.add(duration);
 
 				System.out.println(tempStartDate);
 				System.out.println(tempEndDate);
@@ -78,7 +78,7 @@ public class Labor extends ShareableResource {
 					DateTime bookingDate = bookings.get(index).getStartDate();
 					Duration endBookDuration = bookings.get(index).getDuration();
 					DateTime bookDateDuration = new DateTime(endBookDuration.getNumberOfMonths(), endBookDuration.getNumberOfYears(), endBookDuration.getNumberOfDays());
-					DateTime bookEndDate = bookingDate.add(bookDateDuration);
+					DateTime bookEndDate = bookingDate.add(endBookDuration);
 
 					System.out.println(bookingDate);
 					System.out.println(bookEndDate);

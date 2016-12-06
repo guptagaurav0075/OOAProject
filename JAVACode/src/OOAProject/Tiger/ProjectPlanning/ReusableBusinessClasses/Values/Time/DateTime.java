@@ -1,4 +1,5 @@
 package OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Time;
+import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Duration;
 import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.InvalidInput;
 import java.io.Serializable;
 
@@ -97,11 +98,7 @@ public class DateTime implements Serializable, Comparable<DateTime>{
     	if(year<0){
 			throw new InvalidInput("Year valud is Invalid");
 		}
-<<<<<<< HEAD
-		if(month < 0 || month > 12){
-=======
-		if(month<0 || month>12){
->>>>>>> a04a3784c75790aa71ffc0f0b0f014921cd1cfdc
+		if(month<1 || month>12){
 			throw new InvalidInput("Month value is Invalid");
 		}
 		else{
@@ -215,49 +212,49 @@ public class DateTime implements Serializable, Comparable<DateTime>{
 		timeType = Time_Type.Military;
 			//return null;
 	}
-	public DateTime add(DateTime other){
+	public DateTime add(Duration duration){
 		if(hour==-1){
-			int otherYear = other.getYear();
-			int otherMonth = other.getMonth();
-			int otherDay = other.getDay();
-			otherYear += Year;
-			otherMonth += Month;
-			otherDay += Day;
-			if(Month==2){
-				if(((otherYear%4==0) && (otherYear%100==0))||(otherYear%400 == 0)){
-					if(otherDay >29 ){
-						otherDay -=29;
-						otherMonth = otherMonth+1;
-					}
-				}
-						// if not leap year then check number of days are not more than 28
-				else{
-					if(otherDay > 28){
-						otherDay -=28;
-						otherMonth = otherMonth+1;
-					}
-				}
-			}
-			if((Month ==1)||(Month==3)||(Month==5)||(Month==7)||(Month==8)||(Month==10)||(Month==12)){
-				if(otherDay>31){
-					otherDay-=31;
-					otherMonth+=1;
-				}
-			}
-			if((Month ==4)||(Month==6)||(Month==9)||(Month==11)){
-				if(otherDay>30){
-					otherDay-=30;
-					otherMonth+=1;
-				}
-			}
-			if(otherMonth>12){
-				otherMonth -= 12;
-				otherYear +=1;
-				
-			}
 			try{
-				DateTime temp = new DateTime(otherMonth, otherYear, otherDay);
-				return temp;	
+				DateTime other = new DateTime(this.getMonth(), this.getYear(), this.getDay());
+				int otherYear = other.getYear();
+				int otherMonth = other.getMonth();
+				int otherDay = other.getDay();
+				otherYear += duration.getNumberOfYears();
+				otherMonth += duration.getNumberOfMonths();
+				otherDay += duration.getNumberOfDays();
+				if(Month==2){
+					if(((otherYear%4==0) && (otherYear%100==0))||(otherYear%400 == 0)){
+						if(otherDay >29 ){
+							otherDay -=29;
+							otherMonth = otherMonth+1;
+						}
+					}
+						// if not leap year then check number of days are not more than 28
+					else{
+						if(otherDay > 28){
+							otherDay -=28;
+							otherMonth = otherMonth+1;
+						}
+					}
+				}
+				if((Month ==1)||(Month==3)||(Month==5)||(Month==7)||(Month==8)||(Month==10)||(Month==12)){
+					if(otherDay>31){
+						otherDay-=31;
+						otherMonth+=1;
+					}
+				}
+				if((Month ==4)||(Month==6)||(Month==9)||(Month==11)){
+					if(otherDay>30){
+						otherDay-=30;
+						otherMonth+=1;
+					}
+				}
+				if(otherMonth>12){
+					otherMonth -= 12;
+					otherYear +=1;
+				
+				}
+				return other;	
 			}catch(InvalidInput ie){
 				System.out.println(ie.getMessage());
 			}
