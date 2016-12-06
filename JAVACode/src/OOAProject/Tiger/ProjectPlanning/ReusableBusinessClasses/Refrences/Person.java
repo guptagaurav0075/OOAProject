@@ -29,7 +29,7 @@ public class Person implements Serializable{
 		if(nationality.length()==0){
 			throw new InvalidInput("nationality field is empty");
 		}
-		if((gender!= GenderType.DO_NOT_SPECIFY)||(gender!= GenderType.OTHER)||(gender!= GenderType.MALE)||(gender!= GenderType.FEMALE)){
+		if((gender!= GenderType.DO_NOT_SPECIFY)&&(gender!= GenderType.OTHER)&&(gender!= GenderType.MALE)&&(gender!= GenderType.FEMALE)){
 			throw new InvalidInput("gender value is invalid");
 		}
 		if(dOB.getHour()!=-1||dOB.getDay()==-1){

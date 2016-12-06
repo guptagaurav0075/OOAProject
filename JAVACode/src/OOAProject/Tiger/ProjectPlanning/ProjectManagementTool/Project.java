@@ -32,6 +32,7 @@ public class Project {
 		
        for(int index  = 0;index<predecessor.size();index++){
 			Task temp = predecessor.get(index);
+			
 			if(temp.isVisited()==false){
 				boolean subFlag = true; // flag to check whether all the predecessor are complete or not 
 				if(temp.getPredecessor().size()==0){//no more predecessor
@@ -50,9 +51,11 @@ public class Project {
 				if(temp.getStatus().equals(TaskStatus.NOT_STARTED)){
 					temp.setStatus(TaskStatus.WAITING);
 				}	
-				else{
-					GenerateSchedule(temp, startDate);
-				} 
+				GenerateSchedule(temp, startDate);
+				
+				//check for resources if they are available during the startDate or not
+				
+				
 			
 				// Below for loop is to check if the predecessor is completed then we would show the
 				// start date for the task
@@ -66,7 +69,6 @@ public class Project {
 						break;
 					}
 				}// end of for loop to check if all the predecessor are complete.
-			
 				if(subFlag == true){
 					//calculate the start date for the current task in this situation
 					try{

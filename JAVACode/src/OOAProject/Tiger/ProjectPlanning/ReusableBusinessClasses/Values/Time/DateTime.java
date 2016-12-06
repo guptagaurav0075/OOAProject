@@ -97,7 +97,7 @@ public class DateTime implements Serializable{
     	if(year<0){
 			throw new InvalidInput("Year valud is Invalid");
 		}
-		if(month<1 || month>12){
+		if(month<0 || month>12){
 			throw new InvalidInput("Month value is Invalid");
 		}
 		else{
@@ -304,13 +304,13 @@ public class DateTime implements Serializable{
 		}
 		else if(Day!= -1){
 			result = prime * result + Day;
-			result = prime * result + Month;
-			result = prime * result + Year;
+			result = prime * result + Month*50;
+			result = prime * result + Year*750;
 			return result;
 		}
 		else{
 			result = prime * result + Month;
-			result = prime * result + Year;
+			result = prime * result + Year*100;
 			return result;
 		} 
 	}
