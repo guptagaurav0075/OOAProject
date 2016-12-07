@@ -1,7 +1,6 @@
 package OOAProject.Tiger.ProjectPlanning.ProjectManagementTool;
 
  
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,7 +39,6 @@ public class Project extends CompositeTask{
        if(finalTask instanceof SimpleTask){
     	   finalTask = (SimpleTask)finalTask;
     	   List<Task> predecessor = finalTask.getPredecessor();
-           boolean flag = false;
            DateTime finalEndDate = startDate;
     		
            for(int index  = 0;index<predecessor.size();index++){
