@@ -140,14 +140,7 @@ public abstract class Task {
 	public void setPredecessor(Task predecessor) {
 		this.predecessor.add(predecessor);
 	}
-	private List<Resource> resources = new ArrayList<Resource>();
 	
-	public List<Resource> getResources() {
-		return resources;
-	}
-	public void setResources(Resource resources) {
-		this.resources.add(resources);
-	}
 	
 	
 }

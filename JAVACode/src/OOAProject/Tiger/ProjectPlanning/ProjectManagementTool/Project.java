@@ -50,6 +50,7 @@ public class Project extends CompositeTask{
     				if(temp.getPredecessor().size()==0){//no more predecessor
     					temp.setStartDate(startDate);
     					if(temp.getStatus().equals(TaskStatus.COMPLETED)){
+    						temp.setEndTime(startDate.add(temp.getDuration()));
     						subFlag = true;
     					}
     				}
@@ -72,23 +73,29 @@ public class Project extends CompositeTask{
     					}
     				}// end of for loop to check if all the predecessor are complete.
     				if(subFlag == true){
+    					// subFlag = true means all the predecessor task are complete
     					//calculate the start date for the current task in this situation
     					try{
     					//for loop to find the final date for all the predecessor processes
-    						finalEndDate = temp.getPredecessor().get(0).getStartDate();
+    						finalEndDate = temp.getStartDate().add(temp.getDuration());
     						for(int tempIndex=0;tempIndex<temp.getPredecessor().size(); tempIndex++){
     						
-    							DateTime tempFinalDate = temp.getPredecessor().get(tempIndex).getStartDate();
+    							DateTime tempFinalDate = temp.getPredecessor().get(tempIndex).getStartDate(); // variable used to find the final date of each predecessor task
     							tempFinalDate = tempFinalDate.add(temp.getPredecessor().get(tempIndex).getDuration());//new DateTime(checkTempPredecessor.get(tempIndex).getDuration().getNumberOfMonths(), checkTempPredecessor.get(tempIndex).getDuration().getNumberOfYears(), checkTempPredecessor.get(tempIndex).getDuration().getNumberOfDays()));
     							if(finalEndDate.compareTo(tempFinalDate)<0){
     								finalEndDate = tempFinalDate;
     							}
     						}
+    						for(int tempIndex = 0; tempIndex<temp.getPredecessor().size(); tempIndex++){
+    							temp.getPredecessor().get(tempIndex).setEndTime(finalEndDate);
+    						}
     						//end of for loop
+    						// set the start date one day after the final end date of the task
     						temp.setStartDate(finalEndDate.add(new Duration(1,0,0)));
     						String scheduleString = "Task[ Name: "+temp.getName()+"Start Date :"+temp.getStartDate()+"Status : "+temp.getStatus();
     						schedule.setSchedule(scheduleString);
     						finalEndDate = temp.getStartDate();
+    						temp.setEndTime(getStartDate().add(temp.getDuration()));
     						}catch(InvalidInput ie){
     							System.out.println(ie.getMessage());
     					}
@@ -125,6 +132,7 @@ public class Project extends CompositeTask{
     										DateTime bookingEndDate = bookingStartDate;
     										bookingEndDate = bookingEndDate.add(bookingList.get(indexBookingList).getDuration());
     										if(StartDateOfTask.compareTo(bookingStartDate)<=0 && FinalDateOfTask.compareTo(bookingEndDate)>=0){
+    											temp.getPredecessor().get(tempIndex).setStartDate(bookingStartDate);
     											bookingFlag = true; // booking is available and task is completed but the status is not changed;
     											break;
     										}
@@ -157,26 +165,49 @@ public class Project extends CompositeTask{
     	   // if it is a composite task then traverse through all the subtasks;
     	  
     	   List<Task> subTasks = ((CompositeTask) finalTask).getSubtasks();
-    	   boolean flagCompositeTask = true;// flag to check if all the subtasks are finished then change the status of the composite task to complete
-    	   for(int index=0; index<subTasks.size(); index++){
-    		   if(subTasks.get(index).getStatus().equals(TaskStatus.COMPLETED)){
-    			   continue;
+    	   DateTime finalEndTime = startDate;// to set the final end date time of composite task
+    	   if(finalTask.isVisited()==false){
+    		   if(finalTask.getPredecessor().size()!=0){
+    			   DateTime tempFinalEndTime = finalEndTime;
+    			   for(int index = 0; index<finalTask.getPredecessor().size(); index++){
+    				   GenerateSchedule(finalTask.getPredecessor().get(index), startDate);
+    			   }
+    			   //loop to find the end date that was the maximum among the predecessor task
+    			   for(int index = 0; index<finalTask.getPredecessor().size(); index++){
+    				   tempFinalEndTime = finalTask.getPredecessor().get(index).getEndTime();
+    				   if(finalEndTime.compareTo(tempFinalEndTime)<0){
+    					   finalEndTime = tempFinalEndTime;
+    	    			}
+    			   }
+    			   //loop to set the final end date time for the predecessor task
+    			   for(int index = 0; index<finalTask.getPredecessor().size(); index++){
+    				   finalTask.getPredecessor().get(index).setEndTime(finalEndTime);
+    			   }
+    			   finalTask.setStartDate(finalEndTime.add(new Duration(1, 0, 0)));
     		   }
     		   else{
-    			   flagCompositeTask = false;
-    			   break;
+    			   for(int index =0; index<subTasks.size();index++){
+    				   GenerateSchedule(subTasks.get(index), startDate);
+    			   }   
     		   }
-    	   }
-    	   if(flagCompositeTask == true){
-    		   if(finalTask.getStatus() != (TaskStatus.COMPLETED)){
-    			   String error ="Change the TaskStatus of Composite Task "+finalTask.getName()+ " to completed";
-    			   throw new InvalidInput(error);
+    		   boolean flagCompositeTask = true;// flag to check if all the subtasks are finished then change the status of the composite task to complete
+    		   for(int index=0; index<subTasks.size(); index++){
+    			   if(subTasks.get(index).getStatus().equals(TaskStatus.COMPLETED)){
+    				   continue;
+    			   }
+    			   else{
+    				   flagCompositeTask = false;
+    				   break;
+    			   }
     		   }
-    	   }
-    	   for(int index =0; index<subTasks.size();index++){
-    		   GenerateSchedule(subTasks.get(index), startDate);
-    	   }
-       }
-       
-    }
+    		   if(flagCompositeTask == true){
+    			   if(finalTask.getStatus() != (TaskStatus.COMPLETED)){
+    				   String error ="Change the TaskStatus of Composite Task "+finalTask.getName()+ " to completed";
+    				   throw new InvalidInput(error);
+    			   }
+    		   }// end of if
+    		   finalTask.setVisited(true);
+    	   }// end if visited check
+       }// end of composite task check
+    }// end of function
 }
