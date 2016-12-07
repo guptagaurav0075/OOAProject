@@ -31,11 +31,14 @@ public class Project extends CompositeTask{
    		mainTasks.add(subTask);
     }  
     /**
-     * 
+     * generate schedule will generate the schedule if all the predecessor task are complete 
+     * otherwise it will throw an error about a resource not available and seek the user
+     * to provide the 
      */
     private Schedule schedule = new Schedule();
     public void GenerateSchedule(Task finalTask, DateTime startDate) throws InvalidInput{
        if(finalTask instanceof SimpleTask){
+    	   finalTask = (SimpleTask)finalTask;
     	   List<Task> predecessor = finalTask.getPredecessor();
            boolean flag = false;
            DateTime finalEndDate = startDate;
@@ -93,12 +96,16 @@ public class Project extends CompositeTask{
     				//check for resources if they are available during the startDate or not
     				
     				else{ // subtask is not complete
+    					schedule = null;
+    					for(int tempIndex = 0; tempIndex<temp.getPredecessor().size(); tempIndex++){
+    						temp.getPredecessor().get(tempIndex).setVisited(false); // to set the predecessor to false so that they can be visited again next time;
+    					}
     					for(int tempIndex=0;tempIndex<temp.getPredecessor().size(); tempIndex++){
     						if(temp.getPredecessor().get(tempIndex).getStatus().equals(TaskStatus.COMPLETED)){
     							continue;
     						}
     						else{
-    							List<Resource> resources = temp.getPredecessor().get(tempIndex).getResources();
+    							List<Resource> resources = ((SimpleTask) temp.getPredecessor().get(tempIndex)).getResources();
     							for(int indexResource = 0; indexResource<resources.size(); indexResource++){
     								if(resources.get(indexResource) instanceof Labor || resources.get(indexResource) instanceof Equipment){
     									ShareableResource tempResource = (ShareableResource) resources.get(indexResource);
@@ -145,6 +152,30 @@ public class Project extends CompositeTask{
     				temp.setVisited(true);
     			}
            	}   
+       }
+       else{
+    	   // if it is a composite task then traverse through all the subtasks;
+    	  
+    	   List<Task> subTasks = ((CompositeTask) finalTask).getSubtasks();
+    	   boolean flagCompositeTask = true;// flag to check if all the subtasks are finished then change the status of the composite task to complete
+    	   for(int index=0; index<subTasks.size(); index++){
+    		   if(subTasks.get(index).getStatus().equals(TaskStatus.COMPLETED)){
+    			   continue;
+    		   }
+    		   else{
+    			   flagCompositeTask = false;
+    			   break;
+    		   }
+    	   }
+    	   if(flagCompositeTask == true){
+    		   if(finalTask.getStatus() != (TaskStatus.COMPLETED)){
+    			   String error ="Change the TaskStatus of Composite Task "+finalTask.getName()+ " to completed";
+    			   throw new InvalidInput(error);
+    		   }
+    	   }
+    	   for(int index =0; index<subTasks.size();index++){
+    		   GenerateSchedule(subTasks.get(index), startDate);
+    	   }
        }
        
     }

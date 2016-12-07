@@ -28,6 +28,14 @@ public class SimpleTask extends Task {
 	public SimpleTask(String name, Duration duration, TaskDescription taskDescription) {
 		super(name, duration, taskDescription);
 	}
+	private List<Resource> resources = new ArrayList<Resource>();
+	
+	public List<Resource> getResources() {
+		return resources;
+	}
+	public void setResources(Resource resources) {
+		this.resources.add(resources);
+	}
 
 	
 	@Override
