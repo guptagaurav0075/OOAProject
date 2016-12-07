@@ -57,33 +57,28 @@ public class Equipment extends ShareableResource {
 		}
 		else{
 			boolean flag = true; // it means the resource is not booked
-			try{
-				DateTime tempStartDate = startDate;
-				DateTime tempEndDate = startDate;
-				tempEndDate = tempEndDate.add(duration);
+			DateTime tempStartDate = startDate;
+			DateTime tempEndDate = startDate;
+			tempEndDate = tempEndDate.add(duration);
 
-				System.out.println(tempStartDate);
-				System.out.println(tempEndDate);
+			System.out.println(tempStartDate);
+			System.out.println(tempEndDate);
 
-				System.out.println(tempStartDate.compareTo(tempEndDate));
-			
-				checkBookings: for(int index = 0; index < bookings.size(); index++){
-					DateTime bookingDate = bookings.get(index).getStartDate();
-					Duration endBookDuration = bookings.get(index).getDuration();
-					DateTime bookEndDate = bookingDate.add(endBookDuration);
+			System.out.println(tempStartDate.compareTo(tempEndDate));
 
-					System.out.println(bookingDate);
-					System.out.println(bookEndDate);
+			checkBookings: for(int index = 0; index < bookings.size(); index++){
+				DateTime bookingDate = bookings.get(index).getStartDate();
+				Duration endBookDuration = bookings.get(index).getDuration();
+				DateTime bookEndDate = bookingDate.add(endBookDuration);
 
-					if (!((tempStartDate.compareTo(bookingDate) > 0) && (tempStartDate.compareTo(bookEndDate) < 0))
-							|| !((tempEndDate.compareTo(bookingDate) > 0) && (tempEndDate.compareTo(bookEndDate) < 0))) {
-						flag = false;
-						break checkBookings;
-					}
+				System.out.println(bookingDate);
+				System.out.println(bookEndDate);
+
+				if (!((tempStartDate.compareTo(bookingDate) > 0) && (tempStartDate.compareTo(bookEndDate) < 0))
+						|| !((tempEndDate.compareTo(bookingDate) > 0) && (tempEndDate.compareTo(bookEndDate) < 0))) {
+					flag = false;
+					break checkBookings;
 				}
-			}
-			catch(InvalidInput ie){
-				System.out.println(ie.getMessage());
 			}
 
 			return flag;

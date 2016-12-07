@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Time.DateTime;
 import OOAProject.Tiger.ProjectPlanning.ProjectManagementTool.Resources.Resource;
 import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Duration;
+import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.InvalidInput;
 
 public abstract class Task {
 
@@ -28,7 +29,9 @@ public abstract class Task {
 	public void setVisited(boolean visited) {
 		this.visited = visited;
 	}
-
+	public Task(String name){
+		this.name=name;
+	}
 	public Task(String name, TaskStatus status, Duration duration) {
 		super();
 		this.name = name;
@@ -69,8 +72,43 @@ public abstract class Task {
 	public TaskStatus getStatus() {
 		return status;
 	}
-	public void setStatus(TaskStatus status) {
-		this.status = status;
+	public void setStatus(TaskStatus status) throws InvalidInput{
+		if(this.status==TaskStatus.NOT_STARTED){
+			if(status!=TaskStatus.WAITING && status!=TaskStatus.IN_PROGRESS){
+				throw new InvalidInput("Not a Valid status to set");
+			}
+			else{
+				this.status = status;
+			}
+		}
+		else if(this.status==TaskStatus.IN_PROGRESS){
+			if(status.equals(TaskStatus.NOT_STARTED)){
+				throw new InvalidInput("Not a Valid Status to set");
+			}
+			else{
+				this.status=status;
+			}
+		}
+		else if(this.status==TaskStatus.WAITING){
+			if(status!= TaskStatus.IN_PROGRESS){
+				throw new InvalidInput("Not a Valid Status to set");
+			}
+			else{
+				this.status=status;
+			}
+		}
+		else if(this.status==TaskStatus.COMPLETED){
+			throw new InvalidInput("Task is already completed");
+		}
+		else if(this.status==TaskStatus.SUSPENDED){
+			if(status!=TaskStatus.IN_PROGRESS){
+				throw new InvalidInput("Not a valid Status to set");
+			}
+		}
+		else{
+			throw new InvalidInput("Some error occured in setting the task status");
+		}
+		
 	}
 	public DateTime getStartDate() {
 		return startDate;
@@ -102,5 +140,14 @@ public abstract class Task {
 	public void setPredecessor(Task predecessor) {
 		this.predecessor.add(predecessor);
 	}
+	private List<Resource> resources = new ArrayList<Resource>();
+	
+	public List<Resource> getResources() {
+		return resources;
+	}
+	public void setResources(Resource resources) {
+		this.resources.add(resources);
+	}
+	
 	
 }

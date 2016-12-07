@@ -7,10 +7,18 @@ public class TestDateTime {
 			DateTime dt = new DateTime(1,0,12, 2016,31,-1,30, Time_Type.AM);// hour-min-month-year-day-houroffset-minoffset;
 		//	DateTime dt2 = new DateTime(0,30,1, 2017,1,0,0, Time_Type.Military);;
 			System.out.println(dt);
-			dt.Hours12FormatToMilitary();
+			DateTime dtC1 = new DateTime(4, 1991, 10);
+			DateTime dtC2 = new DateTime(4, 1991, 10);
+			DateTime dtC3 = new DateTime(4, 1991, 9);
+
+			DateTime dtC4 = new DateTime(4, 1991, 11);
+			System.out.println("equal :"+dtC1.compareTo(dtC2));
+			System.out.println("Less :"+dtC1.compareTo(dtC3));
+			System.out.println("More :"+dtC1.compareTo(dtC4));
+			//dt.Hours12FormatToMilitary();
 			//dt.MilitaryTo12HoursFormat();
 			//System.out.println(dt.equals(dt2));
-			System.out.println(dt);
+			//System.out.println(dt);
 			//System.out.println(dt2);
 
 		}

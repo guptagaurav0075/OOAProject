@@ -7,5 +7,6 @@ public enum TaskStatus {
     IN_PROGRESS,
     COMPLETED,
     WAITING,
-    NOT_STARTED
+    NOT_STARTED,
+    SUSPENDED
 }

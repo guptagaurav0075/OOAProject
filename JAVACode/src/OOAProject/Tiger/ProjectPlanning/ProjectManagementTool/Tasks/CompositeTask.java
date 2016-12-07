@@ -14,7 +14,11 @@ public class CompositeTask extends Task {
 
     /**
      * Default constructor
+     * 
      */
+	public CompositeTask(String name){
+		super(name);
+	}
 	public CompositeTask(String name, TaskStatus status, Duration duration,
 			TaskDescription taskDescription) {
 		super(name, status,  duration, taskDescription);
@@ -38,5 +42,8 @@ public class CompositeTask extends Task {
 		subtasks.add(subtask);
 	}
     
+	public void addSubTask(Task subTask){
+		subtasks.add(subTask);
+	}
 
 }

@@ -32,7 +32,7 @@ public class TestingResource {
             }
 
         } catch (Exception E){
-            E.printStackTrace();
+            //E.printStackTrace();
         }
     }
 
