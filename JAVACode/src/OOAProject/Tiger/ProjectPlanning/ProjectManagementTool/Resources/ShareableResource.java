@@ -18,7 +18,6 @@ public abstract class ShareableResource extends Resource {
 		// TODO Auto-generated constructor stub
 	}
 	private List<Booking> bookings = new ArrayList<Booking>();
-	//protected List<Booking> listOfBookings = new ArrayList<Booking>();
     public abstract boolean isAvailable(DateTime startDate, Duration duration); 
 
     public abstract boolean makeBooking(DateTime StartDate, Duration duration) throws InvalidInput;

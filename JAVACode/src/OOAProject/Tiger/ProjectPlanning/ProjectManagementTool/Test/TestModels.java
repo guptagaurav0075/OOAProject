@@ -57,27 +57,27 @@ public class TestModels {
 			tD5.setDescription("This is task 1 and this is the start task");
 			
 			// set durations of all tasks
-			Duration duration6 = new Duration(2);
-			Duration duration5 = new Duration(1);
-			Duration duration4 = new Duration(1);
-			Duration duration3 = new Duration(1);
-			Duration duration2 = new Duration(1);
-			Duration duration1 = new Duration(1);
+			Duration duration6 = new Duration(2,0,0);
+			Duration duration5 = new Duration(1,0,0);
+			Duration duration4 = new Duration(1,0,0);
+			Duration duration3 = new Duration(1,0,0);
+			Duration duration2 = new Duration(1,0,0);
+			Duration duration1 = new Duration(1,0,0);
 			
 			// create all tasks
-			CompositeTask ct = new CompositeTask("taskComposite", TaskStatus.NOT_STARTED, duration6, tD6);
-			SimpleTask task5 = new SimpleTask("task5", TaskStatus.NOT_STARTED, duration5, tD5);
-			SimpleTask task4 = new SimpleTask("task4", TaskStatus.NOT_STARTED, duration4, tD4);
-			SimpleTask task3 = new SimpleTask("task3", TaskStatus.NOT_STARTED, duration3, tD3);
-			SimpleTask task2 = new SimpleTask("task2", TaskStatus.NOT_STARTED, duration2, tD2);
-			SimpleTask task1 = new SimpleTask("task1", TaskStatus.NOT_STARTED, duration1, tD1);
+			CompositeTask ct = new CompositeTask("taskComposite", TaskStatus.COMPLETED, duration6, tD6);
+			SimpleTask task5 = new SimpleTask("task5", TaskStatus.COMPLETED, duration5, tD5);
+			SimpleTask task4 = new SimpleTask("task4", TaskStatus.COMPLETED, duration4, tD4);
+			SimpleTask task3 = new SimpleTask("task3", TaskStatus.COMPLETED, duration3, tD3);
+			SimpleTask task2 = new SimpleTask("task2", TaskStatus.COMPLETED, duration2, tD2);
+			SimpleTask task1 = new SimpleTask("task1", TaskStatus.COMPLETED, duration1, tD1);
 			
 			// create startDates of all tasks
-			DateTime startDate5 = new DateTime(12, 2016, 15);
-			DateTime startDate4 = new DateTime(12, 2015, 13);
-			DateTime startDate3 = new DateTime(12, 2014, 11);
-			DateTime startDate2 = new DateTime(12, 2013, 9);
-			DateTime startDate1 = new DateTime(12, 2012, 7);
+			DateTime startDate5 = new DateTime(12, 2016, 14);
+			DateTime startDate4 = new DateTime(12, 2016, 13);
+			DateTime startDate3 = new DateTime(12, 2016, 11);
+			DateTime startDate2 = new DateTime(12, 2016, 9);
+			DateTime startDate1 = new DateTime(12, 2016, 7);
 			
 			DateTime dob1 = new DateTime(12, 12, 12); // date of birth of labor1
 			DateTime dob2 = new DateTime(12, 12, 12); // date of birth of labor2
@@ -95,8 +95,10 @@ public class TestModels {
 			
 			// set predecessors of task
 			task5.setPredecessor(ct);
-			ct.setPredecessor(task2);
+			//ct.setPredecessor(task2);
 			task2.setPredecessor(task1);
+			task3.setPredecessor(task2);
+			task4.setPredecessor(task3);
 			
 			
 			// make bookings of resources
@@ -135,12 +137,14 @@ public class TestModels {
 			
 			truck.makeBooking(startDate1, duration1); // task1 has startDate - 7 December(duration is 1), and it needs truck which has availability from 6 to 9 December
 			labor1.makeBooking(startDate2, duration2);// task2 has startDate - 9 December(duration is 1) and it needs labor1 which has availability from 8 to 13 December
-			//labor1.makeBooking(startDate3, duration3); // task3 has startDate - 11 December(duration is 1) and it needs labor1 which has availability from 8 to 13 December
-			//labor2.makeBooking(startDate4, duration4); // task4 has startDate - 13 December(duration is 1) and it needs labor2 which has availability from 13 to 16 December	
 			labor2.makeBooking(startDate5, duration5); // task5 has startDate -15 December(duration is 1) and it needs labor2 which has availability from 13 to 16 December
 			
 			List<Booking> myTruckBookings =  truck.getBookings();
-			
+			task1.setResources(cement);
+			task2.setResources(cement);
+			task3.setResources(cement);
+			task4.setResources(labor2);
+			//task5.setResources(cement);
 			// create a new project
 			Project myProject = new Project("House Building");
 			myProject.addTask(task1);
@@ -150,12 +154,7 @@ public class TestModels {
 			myProject.addTask(task5);
 			myProject.addTask(ct);
 			
-			myProject.GenerateSchedule(task5, startDate1);
-			System.out.println(myProject.getSchedule());
-//			for(int index = 0; index<myProject.getMainTasks().size(); index++){
-//				Task temp = myProject.getMainTasks().get(index);
-//				System.out.println(temp);
-//			}
+			myProject.GenerateSchedule(task4, startDate1);
 		}
 		catch(InvalidInput ie){
 			ie.printStackTrace();

@@ -70,7 +70,7 @@ public class Project extends CompositeTask{
     						continue;
     					}
     					else{
-    						String error="Task "+ temp.getName()+ "is not completed";
+    						String error="Task "+ temp.getPredecessor().get(tempIndex).getName()+ "is not completed";
     						subFlag = false;
     						throw new InvalidInput(error);
     						
@@ -81,7 +81,10 @@ public class Project extends CompositeTask{
     					//calculate the start date for the current task in this situation
     					try{
     					//for loop to find the final date for all the predecessor processes
-    						finalEndDate = temp.getStartDate().add(temp.getDuration());
+    						//finalEndDate = temp.getStartDate().add(temp.getDuration());
+    						if(temp.getPredecessor().size()!=0){
+    							finalEndDate = temp.getPredecessor().get(0).getEndTime();
+    						}
     						for(int tempIndex=0;tempIndex<temp.getPredecessor().size(); tempIndex++){
     						
     							DateTime tempFinalDate = temp.getPredecessor().get(tempIndex).getStartDate(); // variable used to find the final date of each predecessor task
@@ -95,11 +98,13 @@ public class Project extends CompositeTask{
     						}
     						//end of for loop
     						// set the start date one day after the final end date of the task
-    						temp.setStartDate(finalEndDate.add(new Duration(1,0,0)));
+    						finalEndDate = finalEndDate.add(new Duration(1,0,0));
+    						temp.setStartDate(finalEndDate);
     						String scheduleString = "Task[ Name: "+temp.getName()+"Start Date :"+temp.getStartDate()+"Status : "+temp.getStatus();
     						schedule.setSchedule(scheduleString);
+    						System.out.println(scheduleString);
     						finalEndDate = temp.getStartDate();
-    						temp.setEndTime(getStartDate().add(temp.getDuration()));
+    						temp.setEndTime(temp.getStartDate().add(temp.getDuration()));
     						}catch(InvalidInput ie){
     							System.out.println(ie.getMessage());
     					}
@@ -160,7 +165,11 @@ public class Project extends CompositeTask{
 							
 						}
     					
+    					
     				}
+    				String scheduleString = "Task[ Name: "+temp.getName()+" \tStart Date :"+temp.getStartDate()+"\t Status : "+temp.getStatus();
+					System.out.println(scheduleString);
+					
     				temp.setVisited(true);
     			}
            	}   
@@ -178,7 +187,7 @@ public class Project extends CompositeTask{
     			   }
     			   //loop to find the end date that was the maximum among the predecessor task
     			   for(int index = 0; index<finalTask.getPredecessor().size(); index++){
-    				   tempFinalEndTime = finalTask.getPredecessor().get(index).getEndTime();
+    				   tempFinalEndTime = finalTask.getPredecessor().get(index).getStartDate().add(finalTask.getPredecessor().get(index).getDuration());
     				   if(finalEndTime.compareTo(tempFinalEndTime)<0){
     					   finalEndTime = tempFinalEndTime;
     	    			}

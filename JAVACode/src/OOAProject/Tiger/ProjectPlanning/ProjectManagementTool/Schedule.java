@@ -1,6 +1,5 @@
 package OOAProject.Tiger.ProjectPlanning.ProjectManagementTool;
 
-import OOAProject.Tiger.ProjectPlanning.ProjectManagementTool.Tasks.Task;
 /**
  * 
  */
@@ -11,7 +10,7 @@ public class Schedule {
     }
 	
 	public void setSchedule(String schedule) {
-		this.schedule = this.schedule+ schedule +"\n";
+		this.schedule = this.schedule + schedule +"\n";
 	}
 	@Override
 	public String toString() {

@@ -216,8 +216,8 @@ public class DateTime implements Serializable, Comparable<DateTime>{
 		if(hour==-1){
 			try{
 				DateTime other = new DateTime(Month, Year, Day);
-				System.out.println(duration);
-				System.out.println(other);
+//				System.out.println(duration);
+//				System.out.println(other);
 				int otherYear = other.getYear();
 				int otherMonth = other.getMonth();
 				int otherDay = other.getDay();

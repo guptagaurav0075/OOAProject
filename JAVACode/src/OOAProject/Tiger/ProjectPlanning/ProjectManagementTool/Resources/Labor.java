@@ -49,7 +49,7 @@ public class Labor extends ShareableResource {
 	public boolean makeBooking(DateTime StartDate, Duration duration) throws InvalidInput{
 		if (isAvailable(StartDate, duration ) == true){
 			addBooking(StartDate, duration);
-			System.out.println("Booking Made Successfully");
+			//System.out.println("Booking Made Successfully");
 			return true;
 		}else{
 			throw new InvalidInput("Resource is already booked, try another date");
