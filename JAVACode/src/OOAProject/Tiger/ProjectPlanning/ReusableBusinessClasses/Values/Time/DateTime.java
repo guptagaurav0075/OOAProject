@@ -215,7 +215,9 @@ public class DateTime implements Serializable, Comparable<DateTime>{
 	public DateTime add(Duration duration){
 		if(hour==-1){
 			try{
-				DateTime other = new DateTime(this.getMonth(), this.getYear(), this.getDay());
+				DateTime other = new DateTime(Month, Year, Day);
+				System.out.println(duration);
+				System.out.println(other);
 				int otherYear = other.getYear();
 				int otherMonth = other.getMonth();
 				int otherDay = other.getDay();
@@ -254,6 +256,7 @@ public class DateTime implements Serializable, Comparable<DateTime>{
 					otherYear +=1;
 				
 				}
+				other = new DateTime(otherMonth, otherYear, otherDay);
 				return other;	
 			}catch(InvalidInput ie){
 				System.out.println(ie.getMessage());

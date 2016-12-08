@@ -58,15 +58,17 @@ public class Equipment extends ShareableResource {
 		else{
 			boolean flag = true; // it means the resource is not booked
 			DateTime tempStartDate = startDate;
-			DateTime tempEndDate = startDate;
-			tempEndDate = tempEndDate.add(duration);
+			DateTime tempEndDate;
+			try {
+				tempEndDate = new DateTime(startDate.getMonth(),startDate.getYear(),startDate.getDay());
+				tempEndDate = tempEndDate.add(duration);
 
-			System.out.println(tempStartDate);
-			System.out.println(tempEndDate);
+				System.out.println(tempStartDate);
+				System.out.println(tempEndDate);
 
-			System.out.println(tempStartDate.compareTo(tempEndDate));
+				System.out.println(tempStartDate.compareTo(tempEndDate));
 
-			checkBookings: for(int index = 0; index < bookings.size(); index++){
+				checkBookings: for(int index = 0; index < bookings.size(); index++){
 				DateTime bookingDate = bookings.get(index).getStartDate();
 				Duration endBookDuration = bookings.get(index).getDuration();
 				DateTime bookEndDate = bookingDate.add(endBookDuration);
@@ -80,9 +82,13 @@ public class Equipment extends ShareableResource {
 					break checkBookings;
 				}
 			}
-
+			} catch (InvalidInput e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return flag;
-		}// end of checking whether the booking is available or not;	
+		}
+			// end of checking whether the booking is available or not;	
 	}
 	@Override
 	public void addBooking(DateTime startDate, Duration duration) {

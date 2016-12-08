@@ -18,15 +18,19 @@ public class TestingResource {
 
             Currency usd = new Currency("Dollar", "Cent", "USD", 100);
             Money costOfTruck = new Money(45, 0, usd);
-            Equipment truck = new Equipment("Truck", costOfTruck, booking1);
+            Equipment truck = new Equipment("Truck", costOfTruck);
 
             truck.makeBooking(new DateTime(7,2016,4), new Duration(0,1,0));
-
+            truck.makeBooking(new DateTime(7,2015,4), new Duration(0,1,0));
             LinkedList<Booking> myTruckBookings =  truck.getBookings();
 
-            for(Booking booking : myTruckBookings){
-                System.out.println(booking);
-            }
+//            for(Booking booking : myTruckBookings){
+//                System.out.println(booking);
+//            }
+            System.out.println(myTruckBookings.size());
+//            for(int index=0; index<myTruckBookings.size(); index++){
+//            	System.out.println(myTruckBookings.get(index));
+//            }
 
         } catch (Exception E){
             //E.printStackTrace();
