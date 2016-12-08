@@ -14,6 +14,7 @@ import OOAProject.Tiger.ProjectPlanning.ProjectManagementTool.Resources.Labor;
 import OOAProject.Tiger.ProjectPlanning.ProjectManagementTool.Resources.Material;
 import OOAProject.Tiger.ProjectPlanning.ProjectManagementTool.Tasks.CompositeTask;
 import OOAProject.Tiger.ProjectPlanning.ProjectManagementTool.Tasks.SimpleTask;
+import OOAProject.Tiger.ProjectPlanning.ProjectManagementTool.Tasks.Task;
 import OOAProject.Tiger.ProjectPlanning.ProjectManagementTool.Tasks.TaskDescription;
 import OOAProject.Tiger.ProjectPlanning.ProjectManagementTool.Tasks.TaskStatus;
 import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Refrences.Person;
@@ -73,10 +74,10 @@ public class TestModels {
 			
 			// create startDates of all tasks
 			DateTime startDate5 = new DateTime(12, 2016, 15);
-			DateTime startDate4 = new DateTime(12, 2016, 13);
-			DateTime startDate3 = new DateTime(12, 2016, 11);
-			DateTime startDate2 = new DateTime(12, 2016, 9);
-			DateTime startDate1 = new DateTime(12, 2016, 7);
+			DateTime startDate4 = new DateTime(12, 2015, 13);
+			DateTime startDate3 = new DateTime(12, 2014, 11);
+			DateTime startDate2 = new DateTime(12, 2013, 9);
+			DateTime startDate1 = new DateTime(12, 2012, 7);
 			
 			DateTime dob1 = new DateTime(12, 12, 12); // date of birth of labor1
 			DateTime dob2 = new DateTime(12, 12, 12); // date of birth of labor2
@@ -99,11 +100,11 @@ public class TestModels {
 			
 			
 			// make bookings of resources
-			Booking booking5 = new Booking(new DateTime(12, 2016, 14), new Duration(3));
-			Booking booking4 = new Booking(new DateTime(12, 2016, 12), new Duration(3)); //
-			Booking booking3 = new Booking(new DateTime(12, 2016, 13), new Duration(3)); // availability of labor2
-			Booking booking2 = new Booking(new DateTime(12, 2016, 8), new Duration(5)); // availability of labor1
-			Booking booking1 = new Booking(new DateTime(12, 2016, 6), new Duration(3)); // availability of truck
+			Booking booking5 = new Booking(new DateTime(12, 201, 22), new Duration(1,0,0));
+			Booking booking4 = new Booking(new DateTime(12, 201, 19), new Duration(1,0,0)); //
+			Booking booking3 = new Booking(new DateTime(12, 201, 13), new Duration(1,0,0)); // availability of labor2
+			Booking booking2 = new Booking(new DateTime(12, 201, 8), new Duration(1,0,0)); // availability of labor1
+			Booking booking1 = new Booking(new DateTime(12, 201, 6), new Duration(1,0,0)); // availability of truck
 			
 			//
 			//
@@ -125,17 +126,17 @@ public class TestModels {
 			Money costOfCement = new Money(50, 0, usd);
 			
 			// create resources - labor, equipment and material
-			Equipment truck = new Equipment("Truck", costOfTruck, booking1);
+			Equipment truck = new Equipment("Truck", costOfTruck);
 			Material cement = new Material("Bricks",costOfCement, quantityOfBricks);
-			Labor labor1 = new Labor("labor1", costOfLabor, "001", person1, booking2);
-			Labor labor2 = new Labor("labor1", costOfLabor, "002", person2, booking3);
+			Labor labor1 = new Labor("labor1", costOfLabor, "001", person1);
+			Labor labor2 = new Labor("labor1", costOfLabor, "002", person2);
 			
 			// make bookings
 			
 			truck.makeBooking(startDate1, duration1); // task1 has startDate - 7 December(duration is 1), and it needs truck which has availability from 6 to 9 December
 			labor1.makeBooking(startDate2, duration2);// task2 has startDate - 9 December(duration is 1) and it needs labor1 which has availability from 8 to 13 December
-			labor1.makeBooking(startDate3, duration3); // task3 has startDate - 11 December(duration is 1) and it needs labor1 which has availability from 8 to 13 December
-			labor2.makeBooking(startDate4, duration4); // task4 has startDate - 13 December(duration is 1) and it needs labor2 which has availability from 13 to 16 December	
+			//labor1.makeBooking(startDate3, duration3); // task3 has startDate - 11 December(duration is 1) and it needs labor1 which has availability from 8 to 13 December
+			//labor2.makeBooking(startDate4, duration4); // task4 has startDate - 13 December(duration is 1) and it needs labor2 which has availability from 13 to 16 December	
 			labor2.makeBooking(startDate5, duration5); // task5 has startDate -15 December(duration is 1) and it needs labor2 which has availability from 13 to 16 December
 			
 			List<Booking> myTruckBookings =  truck.getBookings();
@@ -149,9 +150,12 @@ public class TestModels {
 			myProject.addTask(task5);
 			myProject.addTask(ct);
 			
-			Schedule schedule1 = new Schedule();
 			myProject.GenerateSchedule(task5, startDate1);
-			
+			System.out.println(myProject.getSchedule());
+//			for(int index = 0; index<myProject.getMainTasks().size(); index++){
+//				Task temp = myProject.getMainTasks().get(index);
+//				System.out.println(temp);
+//			}
 		}
 		catch(InvalidInput ie){
 			ie.printStackTrace();

@@ -1,6 +1,7 @@
 package OOAProject.Tiger.ProjectPlanning.ProjectManagementTool;
 
  
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class Project extends CompositeTask{
     /**
      * Default constructor
      */
-	List<Task> mainTasks = null;
+	List<Task> mainTasks = new ArrayList<Task>();
 	public Project(String name){
 		super(name);
 	}
@@ -125,7 +126,7 @@ public class Project extends CompositeTask{
     	    							else if(resources.get(indexResource) instanceof Equipment){
     	    								tempResource = (Equipment) resources.get(indexResource);
     	    							}
-    									LinkedList<Booking> bookingList  = tempResource.getBookings();
+    									List<Booking> bookingList  = tempResource.getBookings();
     									DateTime StartDateOfTask = temp.getPredecessor().get(tempIndex).getStartDate();
     									DateTime FinalDateOfTask =StartDateOfTask;
     									FinalDateOfTask= FinalDateOfTask.add(temp.getPredecessor().get(tempIndex).getDuration());
@@ -213,4 +214,8 @@ public class Project extends CompositeTask{
     	   }// end if visited check
        }// end of composite task check
     }// end of function
+
+	public List<Task> getMainTasks() {
+		return mainTasks;
+	}
 }

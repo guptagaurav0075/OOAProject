@@ -38,10 +38,7 @@ public class CompositeTask extends Task {
 	public List<Task> getSubtasks() {
 		return subtasks;
 	}
-	public void setSubtasks(Task subtask) {
-		subtasks.add(subtask);
-	}
-    
+	
 	public void addSubTask(Task subTask){
 		subtasks.add(subTask);
 	}
