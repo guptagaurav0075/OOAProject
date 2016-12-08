@@ -1,11 +1,7 @@
 package OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Quantity;
 
 
-/**
- * Created by Abdullah Al-Shehabi on 11/2/2016.
- */
-
-class Unit implements java.io.Serializable {
+public class Unit implements java.io.Serializable {
     public static Unit meter = new Unit("meter");
     public static Unit km = new Unit("kilometer");
     public static Unit mile = new Unit("mile");

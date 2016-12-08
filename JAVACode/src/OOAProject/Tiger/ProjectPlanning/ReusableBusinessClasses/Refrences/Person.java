@@ -20,7 +20,7 @@ public class Person implements Serializable{
     private Title title;
     private Email emailID;
     private DateTime DOB;
-    public Person(String name, String nationality, Set<Telephone> phoneNumber, GenderType gender, Address address,
+    public Person(String name, String nationality, GenderType gender, Address address,
 			Title title, Email emailID, DateTime dOB) throws InvalidInput {
 		super();
 		if(name.length()==0){
@@ -37,7 +37,7 @@ public class Person implements Serializable{
 		}
 		this.name = name;
 		this.nationality = nationality;
-		this.phoneNumber = phoneNumber;
+//		this.phoneNumber = phoneNumber;
 		this.gender = gender;
 		this.address = address;
 		this.title = title;
