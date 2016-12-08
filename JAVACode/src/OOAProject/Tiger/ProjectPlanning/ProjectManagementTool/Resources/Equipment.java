@@ -2,6 +2,7 @@ package OOAProject.Tiger.ProjectPlanning.ProjectManagementTool.Resources;
 
 
 import java.util.LinkedList;
+import java.util.List;
 
 import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Duration;
 import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.InvalidInput;
@@ -50,7 +51,7 @@ public class Equipment extends ShareableResource {
     }
 	@Override
 	public boolean isAvailable(DateTime startDate, Duration duration) {
-		LinkedList<Booking> bookings = getBookings();
+		List<Booking> bookings = this.getBookings();
 
 		if(bookings.size()==0){
 			return true;
@@ -75,12 +76,17 @@ public class Equipment extends ShareableResource {
 
 //				System.out.println(bookingDate);
 //				System.out.println(bookEndDate);
-
-				if (!((tempStartDate.compareTo(bookingDate) > 0) && (tempStartDate.compareTo(bookEndDate) < 0))
-						|| !((tempEndDate.compareTo(bookingDate) > 0) && (tempEndDate.compareTo(bookEndDate) < 0))) {
+				if((bookingDate.compareTo(tempStartDate)<=0&& bookEndDate.compareTo(tempStartDate)>=0)||(bookingDate.compareTo(tempEndDate)<=0 && bookEndDate.compareTo(tempEndDate)>=0)){
 					flag = false;
-					break checkBookings;
+					throw new InvalidInput("resource already booked");
+					//break checkBookings;
 				}
+//
+//				if (!((tempStartDate.compareTo(bookingDate) > 0) && (tempStartDate.compareTo(bookEndDate) < 0))
+//						|| !((tempEndDate.compareTo(bookingDate) > 0) && (tempEndDate.compareTo(bookEndDate) < 0))) {
+//					flag = false;
+//					break checkBookings;
+//				}
 			}
 			} catch (InvalidInput e) {
 				// TODO Auto-generated catch block

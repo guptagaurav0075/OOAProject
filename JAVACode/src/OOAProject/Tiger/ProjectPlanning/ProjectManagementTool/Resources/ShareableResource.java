@@ -3,7 +3,9 @@ package OOAProject.Tiger.ProjectPlanning.ProjectManagementTool.Resources;
 
 import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Time.DateTime;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+//import java.util.LinkedList;
+import java.util.List;
 
 import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Duration;
 import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.InvalidInput;
@@ -15,7 +17,7 @@ public abstract class ShareableResource extends Resource {
 		super(name, cost);
 		// TODO Auto-generated constructor stub
 	}
-	private LinkedList<Booking> bookings = new LinkedList<Booking>();
+	private List<Booking> bookings = new ArrayList<Booking>();
 	//protected List<Booking> listOfBookings = new ArrayList<Booking>();
     public abstract boolean isAvailable(DateTime startDate, Duration duration); 
 
@@ -23,8 +25,8 @@ public abstract class ShareableResource extends Resource {
 
     public abstract void addBooking(DateTime startDate, Duration duration); 
 
-	public LinkedList<Booking> getBookings() {
-		return bookings;
+	public ArrayList<Booking> getBookings() {
+		return (ArrayList<Booking>) bookings;
 	}
 
 	public void setBookings(Booking book) {

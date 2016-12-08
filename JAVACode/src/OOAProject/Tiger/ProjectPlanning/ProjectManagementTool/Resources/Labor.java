@@ -1,6 +1,7 @@
 package OOAProject.Tiger.ProjectPlanning.ProjectManagementTool.Resources;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Refrences.Person;
 import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Duration;
@@ -57,7 +58,7 @@ public class Labor extends ShareableResource {
 
     @Override
 	public boolean isAvailable(DateTime startDate, Duration duration) {
-		LinkedList<Booking> bookings = getBookings();
+		List<Booking> bookings = getBookings();
 
 		if(bookings.size()==0){
 			return true;

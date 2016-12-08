@@ -21,7 +21,7 @@ public class TestingResource {
             Equipment truck = new Equipment("Truck", costOfTruck);
 
             truck.makeBooking(new DateTime(7,2016,4), new Duration(0,1,0));
-            truck.makeBooking(new DateTime(7,2016,4), new Duration(0,1,0));
+            truck.makeBooking(new DateTime(7,2015,4), new Duration(0,1,0));
 
 //            for(Booking bo	oking : myTruckBookings){
 //                System.out.println(booking);
