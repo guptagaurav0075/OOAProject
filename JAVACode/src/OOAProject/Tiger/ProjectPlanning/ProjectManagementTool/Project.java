@@ -35,7 +35,12 @@ public class Project extends CompositeTask{
      * to provide the 
      */
     private Schedule schedule = new Schedule();
-    public void GenerateSchedule(Task finalTask, DateTime startDate) throws InvalidInput{
+    
+    public Schedule getSchedule() {
+		return schedule;
+	}
+
+	public void GenerateSchedule(Task finalTask, DateTime startDate) throws InvalidInput{
        if(finalTask instanceof SimpleTask){
     	   finalTask = (SimpleTask)finalTask;
     	   List<Task> predecessor = finalTask.getPredecessor();

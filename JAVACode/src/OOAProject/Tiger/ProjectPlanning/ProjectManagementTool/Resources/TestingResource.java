@@ -7,9 +7,6 @@ import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.Time.Date
 
 import java.util.LinkedList;
 
-/**
- * Created by Abdullah Al-Shehabi on 12/5/2016.
- */
 public class TestingResource {
 
     public static void main(String[] args){

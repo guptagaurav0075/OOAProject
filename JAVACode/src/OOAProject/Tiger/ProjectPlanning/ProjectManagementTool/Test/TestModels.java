@@ -2,6 +2,7 @@ package OOAProject.Tiger.ProjectPlanning.ProjectManagementTool.Test;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -134,6 +135,8 @@ public class TestModels {
 		labor1.makeBooking(startDate3, duration3); // task3 has startDate - 11 December(duration is 1) and it needs labor1 which has availability from 8 to 13 December
 		labor2.makeBooking(startDate4, duration4); // task4 has startDate - 13 December(duration is 1) and it needs labor2 which has availability from 13 to 16 December	
 		labor2.makeBooking(startDate5, duration5); // task5 has startDate -15 December(duration is 1) and it needs labor2 which has availability from 13 to 16 December
+		
+		LinkedList<Booking> myTruckBookings =  truck.getBookings();
 		
 		// create a new project
 		Project myProject = new Project("House Building");
