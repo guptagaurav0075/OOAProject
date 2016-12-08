@@ -68,18 +68,18 @@ public class Labor extends ShareableResource {
 			DateTime tempEndDate = startDate;
 			tempEndDate = tempEndDate.add(duration);
 
-			System.out.println(tempStartDate);
-			System.out.println(tempEndDate);
-
-			System.out.println(tempStartDate.compareTo(tempEndDate));
+//			System.out.println(tempStartDate);
+//			System.out.println(tempEndDate);
+//
+//			System.out.println(tempStartDate.compareTo(tempEndDate));
 
 			checkBookings: for(int index = 0; index < bookings.size(); index++){
 				DateTime bookingDate = bookings.get(index).getStartDate();
 				Duration endBookDuration = bookings.get(index).getDuration();
 				DateTime bookEndDate = bookingDate.add(endBookDuration);
 
-				System.out.println(bookingDate);
-				System.out.println(bookEndDate);
+//				System.out.println(bookingDate);
+//				System.out.println(bookEndDate);
 
 				if (!((tempStartDate.compareTo(bookingDate) > 0) && (tempStartDate.compareTo(bookEndDate) < 0))
 						|| !((tempEndDate.compareTo(bookingDate) > 0) && (tempEndDate.compareTo(bookEndDate) < 0))) {
@@ -95,6 +95,6 @@ public class Labor extends ShareableResource {
 	@Override
 	public void addBooking(DateTime startDate, Duration duration) {
 		Booking book = new Booking(startDate, duration);
-		super.setBookings(book);
+		this.setBookings(book);
 	}
 }

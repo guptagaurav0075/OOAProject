@@ -21,16 +21,15 @@ public class TestingResource {
             Equipment truck = new Equipment("Truck", costOfTruck);
 
             truck.makeBooking(new DateTime(7,2016,4), new Duration(0,1,0));
-            truck.makeBooking(new DateTime(7,2015,4), new Duration(0,1,0));
-            LinkedList<Booking> myTruckBookings =  truck.getBookings();
+            truck.makeBooking(new DateTime(7,2016,4), new Duration(0,1,0));
 
-//            for(Booking booking : myTruckBookings){
+//            for(Booking bo	oking : myTruckBookings){
 //                System.out.println(booking);
 //            }
-            System.out.println(myTruckBookings.size());
-//            for(int index=0; index<myTruckBookings.size(); index++){
-//            	System.out.println(myTruckBookings.get(index));
-//            }
+            System.out.println("Bookings :"+ truck.getBookings().size());
+            for(int index=0; index<truck.getBookings().size(); index++){
+            	System.out.println(truck.getBookings().get(index));
+            }
 
         } catch (Exception E){
             //E.printStackTrace();

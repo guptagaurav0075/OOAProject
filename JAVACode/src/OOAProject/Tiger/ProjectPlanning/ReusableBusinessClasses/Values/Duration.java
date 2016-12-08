@@ -9,8 +9,8 @@ import OOAProject.Tiger.ProjectPlanning.ReusableBusinessClasses.Values.InvalidIn
  */
 public class Duration {
 	private int NumberOfDays = -1;
-    private int NumberOfMonths = -1;
-    private int NumberOfYears = -1;
+    private int NumberOfMonths = 0;
+    private int NumberOfYears = 0;
     private int NumberOfHours = -1;
     private int NumberOfMinutes = -1;
 	
@@ -96,14 +96,14 @@ public class Duration {
 
 	@Override
 	public String toString() {
-		if(NumberOfHours==-1 &&NumberOfMinutes ==-1 && NumberOfMonths ==-1 && NumberOfYears == -1){
+		if(NumberOfHours==-1 &&NumberOfMinutes ==-1 && NumberOfMonths ==0 && NumberOfYears == 0){
 			return "Duration [NumberOfDays =" + NumberOfDays+"]";
 		}
-		else if(NumberOfDays==-1 && NumberOfMonths ==-1 && NumberOfYears == -1){
+		else if(NumberOfDays==-1 && NumberOfMonths == 0 && NumberOfYears == 0){
 			return "Duration [hh:mm] - "+NumberOfHours+":"+NumberOfMinutes;
 		}
-		else if(NumberOfMonths ==-1 && NumberOfYears == -1){
-			return "Duration [Days : " +NumberOfDays+"] [hh:mm] ["+NumberOfHours+":"+NumberOfMinutes+"]";
+		else if(NumberOfHours ==-1 && NumberOfMinutes == -1){
+			return "Duration [DD/MM/YYYY] : [" +NumberOfDays+ "/"+NumberOfMonths+"/"+NumberOfYears+"]";
 		}
 		else if(NumberOfYears == -1){
 			return "Duration [DD/MM] : " +NumberOfDays+"/"+NumberOfMonths+"] [hh:mm] ["+NumberOfHours+":"+NumberOfMinutes+"]";
